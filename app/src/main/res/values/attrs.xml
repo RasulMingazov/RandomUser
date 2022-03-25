@@ -22,4 +22,9 @@
     <attr name="startHeight" format="dimension"/>
     <attr name="finalHeight" format="dimension"/>
     <attr name="starButtonColor" format="color" />
+    <attr name="textColor" format="color" />
+
+    <declare-styleable name="CollapsingImageBehavior">
+        <attr name="collapsedTarget" format="reference" />
+    </declare-styleable>
 </resources>

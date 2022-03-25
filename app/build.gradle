@@ -99,6 +99,10 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.11.0'
     implementation 'com.mig35:carousellayoutmanager:1.4.6'
 
+    //CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    //SwipeRefresh
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 
 }
