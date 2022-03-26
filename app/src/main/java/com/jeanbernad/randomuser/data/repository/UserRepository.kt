@@ -8,7 +8,7 @@ class UserRepository @Inject constructor(
         private val remoteDataSource: RemoteDataSource,
 ) {
 
-    fun getUser(id: Int) = performGetOperation {
+    fun getUser() = performGetOperation {
         remoteDataSource.getUser()
     }
 

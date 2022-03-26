@@ -1,6 +1,7 @@
 package com.jeanbernad.randomuser.ui.user
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import com.jeanbernad.randomuser.extensions.*
 import com.jeanbernad.randomuser.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_user.*
 
 @AndroidEntryPoint
 class UserFragment : Fragment() {
@@ -39,7 +41,7 @@ class UserFragment : Fragment() {
                         val user = it.data!!
                         Glide.with(binding.root)
                                 .load(user.results[0].picture.medium)
-                                 .transform(CircleCrop())
+                                .transform(CircleCrop())
                                 .into(binding.avatar)
                         binding.name.text = user.fullName()
                         binding.birthdayDate.text = user.birthday()
@@ -63,5 +65,11 @@ class UserFragment : Fragment() {
                     }
             )
         })
+
+        binding.swipeRefresh.setOnRefreshListener {
+            binding.container.visibility = View.GONE
+            viewModel.refresh()
+            binding.swipeRefresh.isRefreshing = false
+        }
     }
 }
