@@ -15,8 +15,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="match_parent">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -244,6 +243,8 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/data_location"
                 style="@style/large_block"
+                android:clickable="true"
+                android:focusable="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/user_data_default_margin_top"
@@ -253,7 +254,6 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/country_block"
-                    style="@style/clickable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/user_block_default_padding"
@@ -288,7 +288,6 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/city_block"
-                    style="@style/clickable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/user_block_default_padding"
@@ -323,7 +322,6 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/address_block"
-                    style="@style/clickable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/user_block_default_padding"
@@ -356,8 +354,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/coordinates_block"
-                    style="@style/clickable"
+                    android:id="@+id/longitude_block"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingTop="@dimen/user_block_default_padding"
@@ -367,18 +364,62 @@
                     app:layout_constraintTop_toBottomOf="@id/address_block">
 
                     <TextView
-                        android:id="@+id/coordinates"
+                        android:id="@+id/longitude"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/user_block_values_margin"
-                        android:text="@string/coordinates"
-                        android:textColor="@color/green"
+                        android:text="@string/longitude"
                         android:textSize="@dimen/user_block_values_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/longitude_value"
+                        style="@style/UserValueText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/user_block_values_margin"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/longitude"
+                        app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/latitude_block"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/user_block_default_padding"
+                    android:paddingBottom="@dimen/user_block_default_padding"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/longitude_block">
+
+                    <TextView
+                        android:id="@+id/latitude"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/user_block_values_margin"
+                        android:text="@string/latitude"
+                        android:textSize="@dimen/user_block_values_text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/latitude_value"
+                        style="@style/UserValueText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/user_block_values_margin"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/latitude"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

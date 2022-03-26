@@ -10,4 +10,6 @@
     <string name="country">Country</string>
     <string name="gender">Gender</string>
     <string name="mail">Mail</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
 </resources>
