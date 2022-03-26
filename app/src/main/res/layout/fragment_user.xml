@@ -70,13 +70,13 @@
 
                 <TextView
                     android:id="@+id/name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/user_name_margin_start"
-                    android:text="Rasul Mingazov"
                     android:textColor="?attr/simpleTextColor"
                     android:textSize="@dimen/user_name_text_size"
                     app:layout_constraintBottom_toBottomOf="@+id/avatar"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/avatar"
                     app:layout_constraintTop_toTopOf="@+id/avatar" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -115,14 +115,47 @@
 
                     <TextView
                         android:id="@+id/birthday_date"
+                        style="@style/UserValueText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/user_block_values_margin"
-                        android:text="23.04.2001"
-                        android:textColor="?attr/simpleTextColor"
-                        android:textSize="@dimen/user_block_values_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/birthday"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/gender_block"
+                    style="@style/clickable"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/user_block_default_padding"
+                    android:paddingBottom="@dimen/user_block_default_padding"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/birthday_block">
+
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/user_block_values_margin"
+                        android:text="@string/gender"
+                        android:textSize="@dimen/user_block_values_text_size"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/gender_value"
+                        style="@style/UserValueText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/user_block_values_margin"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/gender"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -162,14 +195,13 @@
 
                     <TextView
                         android:id="@+id/phone_number"
+                        style="@style/UserValueText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/user_block_values_margin"
-                        android:text="+7(904)662-37-48"
-                        android:textColor="?attr/simpleTextColor"
-                        android:textSize="@dimen/user_block_values_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/phone"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -189,7 +221,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/user_block_values_margin"
-                        android:text="Mail"
                         android:textSize="@dimen/user_block_values_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -197,14 +228,13 @@
 
                     <TextView
                         android:id="@+id/mail_value"
+                        style="@style/UserValueText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/user_block_values_margin"
-                        android:text="rasul.mingazov@gmail.com"
-                        android:textColor="?attr/simpleTextColor"
-                        android:textSize="@dimen/user_block_values_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/mail"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -243,14 +273,13 @@
 
                     <TextView
                         android:id="@+id/county_name"
+                        style="@style/UserValueText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/user_block_values_margin"
-                        android:text="Russia"
-                        android:textColor="?attr/simpleTextColor"
-                        android:textSize="@dimen/user_block_values_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/country"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -279,14 +308,13 @@
 
                     <TextView
                         android:id="@+id/city_name"
+                        style="@style/UserValueText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/user_block_values_margin"
-                        android:text="Kazan"
-                        android:textColor="?attr/simpleTextColor"
-                        android:textSize="@dimen/user_block_values_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/city"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -315,14 +343,13 @@
 
                     <TextView
                         android:id="@+id/address_name"
+                        style="@style/UserValueText"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/user_block_values_margin"
-                        android:text="Amirkana, 23"
-                        android:textColor="?attr/simpleTextColor"
-                        android:textSize="@dimen/user_block_values_text_size"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/address"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -359,6 +386,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:indeterminate="true"
+            android:visibility="gone"
             android:indeterminateTint="?attr/progressBarColor"
             android:indeterminateTintMode="src_atop"
             android:progressTint="@color/white"
