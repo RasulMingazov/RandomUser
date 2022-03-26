@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">RandomUser</string>
+    <string name="birthday">Birthday</string>
+    <string name="phone">Phone</string>
+    <string name="user">Профиль</string>
+    <string name="share">share</string>
+    <string name="coordinates">Coordinates</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="country">Country</string>
+    <string name="gender">Gender</string>
+    <string name="mail">Mail</string>
 </resources>
