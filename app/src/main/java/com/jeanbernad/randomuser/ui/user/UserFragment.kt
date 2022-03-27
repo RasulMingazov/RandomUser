@@ -49,7 +49,7 @@ class UserFragment : Fragment() {
             Intent(Intent.ACTION_SEND).apply {
                 type = ClipDescription.MIMETYPE_TEXT_PLAIN
                 putExtra(Intent.EXTRA_EMAIL, arrayListOf("${binding.mailValue.text}"))
-                startActivity(Intent.createChooser(this, ""));
+                startActivity(Intent.createChooser(this, ""))
             }
         }
 
