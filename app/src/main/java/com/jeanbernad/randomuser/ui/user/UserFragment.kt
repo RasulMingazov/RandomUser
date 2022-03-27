@@ -54,7 +54,16 @@ class UserFragment : Fragment() {
         }
 
         binding.coordinatesBlock.setOnClickListener {
-            openMapsActivity()
+            Intent(Intent.ACTION_VIEW).apply {
+                val coordinates = binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
+                data = Uri.parse(
+                    String.format(
+                        Locale.ENGLISH,
+                        "geo:${coordinates[0]},${coordinates[1]}"
+                    )
+                )
+                startActivity(this)
+            }
         }
 
         binding.share.setOnClickListener {
@@ -108,19 +117,6 @@ class UserFragment : Fragment() {
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.refresh()
             binding.swipeRefresh.isRefreshing = false
-        }
-    }
-
-    private fun openMapsActivity() {
-        Intent(Intent.ACTION_VIEW).apply {
-            val coordinates = binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
-            data = Uri.parse(
-                String.format(
-                    Locale.ENGLISH,
-                    "geo:${coordinates[0]},${coordinates[1]}"
-                )
-            )
-            startActivity(this)
         }
     }
 }
