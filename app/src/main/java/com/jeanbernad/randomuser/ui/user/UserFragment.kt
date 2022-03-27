@@ -27,9 +27,9 @@ class UserFragment : Fragment() {
     private lateinit var userToString: String
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
         binding = FragmentUserBinding.inflate(inflater, container, false)
         return binding.root
@@ -49,15 +49,12 @@ class UserFragment : Fragment() {
             Intent(Intent.ACTION_SEND).apply {
                 type = ClipDescription.MIMETYPE_TEXT_PLAIN
                 putExtra(Intent.EXTRA_EMAIL, arrayListOf("${binding.mailValue.text}"))
-                startActivity(Intent.createChooser(this, ""));
+                startActivity(Intent.createChooser(this, ""))
             }
         }
 
-        binding.dataLocation.setOnClickListener {
-            Intent(Intent.ACTION_VIEW,).apply {
-                data = Uri.parse(String.format(Locale.ENGLISH, "geo:${binding.latitudeValue.text},${binding.longitudeValue.text}"))
-                startActivity(this)
-            }
+        binding.coordinatesBlock.setOnClickListener {
+            openMapsActivity()
         }
 
         binding.share.setOnClickListener {
@@ -68,48 +65,62 @@ class UserFragment : Fragment() {
             }
             Intent.createChooser(sendIntent, null).apply {
                 startActivity(this)
-            } }
+            }
+        }
 
         viewModel.user.observe(viewLifecycleOwner, {
             viewModel.bind(it,
-                    success = {
-                        val user = it.data!!
-                        binding.name.text = user.fullName()
-                        binding.birthdayDate.text = user.birthday()
-                        binding.addressName.text = user.fullAddress()
-                        binding.genderValue.text = user.gender()
-                        binding.phoneNumber.text = user.phone()
-                        binding.mailValue.text = user.mail()
-                        binding.countyName.text = user.country()
-                        binding.cityName.text = user.city()
-                        binding.longitudeValue.text = user.longitude()
-                        binding.latitudeValue.text = user.latitude()
-                        Glide.with(binding.root)
-                                .load(user.results[0].picture.medium)
-                                .transform(CircleCrop())
-                                .into(binding.avatar)
+                success = {
+                    val user = it.data!!
+                    binding.name.text = user.fullName()
+                    binding.birthdayDate.text = user.birthday()
+                    binding.addressName.text = user.fullAddress()
+                    binding.genderValue.text = user.gender()
+                    binding.phoneNumber.text = user.phone()
+                    binding.mailValue.text = user.mail()
+                    binding.countyName.text = user.country()
+                    binding.cityName.text = user.city()
+                    binding.coordinatesValue.text = user.coordinates()
+                    Glide.with(binding.root)
+                        .load(user.results[0].picture.medium)
+                        .transform(CircleCrop())
+                        .into(binding.avatar)
 
-                        binding.progressBar.visibility = View.GONE
-                        binding.container.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
+                    binding.container.visibility = View.VISIBLE
 
-                        userToString = user.toString()
-                        Log.d("UserFragment", "User upload success")
-                    },
-                    error = {
-                        Toast.makeText(requireContext(), "Some problems, try later", Toast.LENGTH_SHORT).show()
-                        Log.d("UserFragment", "Mistake while user upload")
-                    },
-                    loading = {
-                        binding.container.visibility = View.GONE
-                        binding.progressBar.visibility = View.VISIBLE
-                        Log.d("UserFragment", "User loading")
-                    }
+                    userToString = user.toString()
+                    Log.d("UserFragment", "User upload success")
+                },
+                error = {
+                    Toast.makeText(requireContext(), "Some problems, try later", Toast.LENGTH_SHORT)
+                        .show()
+                    Log.d("UserFragment", "Mistake while user upload")
+                },
+                loading = {
+                    binding.container.visibility = View.GONE
+                    binding.progressBar.visibility = View.VISIBLE
+                    Log.d("UserFragment", "User loading")
+                }
             )
         })
 
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.refresh()
             binding.swipeRefresh.isRefreshing = false
+        }
+    }
+
+    private fun openMapsActivity() {
+        Intent(Intent.ACTION_VIEW).apply {
+            val coordinates = binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
+            data = Uri.parse(
+                String.format(
+                    Locale.ENGLISH,
+                    "geo:${coordinates[0]},${coordinates[1]}"
+                )
+            )
+            startActivity(this)
         }
     }
 }

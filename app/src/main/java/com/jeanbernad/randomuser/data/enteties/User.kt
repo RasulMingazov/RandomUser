@@ -4,6 +4,7 @@ import com.jeanbernad.randomuser.data.enteties.info.Info
 import com.jeanbernad.randomuser.data.enteties.result.Result
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 data class User(
         val info: Info,
@@ -17,7 +18,7 @@ data class User(
 
     fun fullAddress() = "${this.results[0].location.street.name}, ${this.results[0].location.street.number}"
 
-    fun gender() = this.results[0].gender.capitalize()
+    fun gender() = this.results[0].gender.capitalize(Locale.ROOT)
 
     fun phone() = this.results[0].phone
 
@@ -27,9 +28,7 @@ data class User(
 
     fun city() = this.results[0].location.city
 
-    fun latitude() = this.results[0].location.coordinates.latitude
-
-    fun longitude() = this.results[0].location.coordinates.longitude
+    fun coordinates() = "(${this.results[0].location.coordinates.latitude}, ${this.results[0].location.coordinates.longitude})"
 
     fun birthday() : String {
         val birthday = this.results[0].dob.date.substring(0, this.results[0].dob.date.length - 1)
