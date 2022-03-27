@@ -27,9 +27,7 @@ data class User(
 
     fun city() = this.results[0].location.city
 
-    fun latitude() = this.results[0].location.coordinates.latitude
-
-    fun longitude() = this.results[0].location.coordinates.longitude
+    fun coordinates() = "(${this.results[0].location.coordinates.latitude}, ${this.results[0].location.coordinates.longitude})"
 
     fun birthday() : String {
         val birthday = this.results[0].dob.date.substring(0, this.results[0].dob.date.length - 1)
