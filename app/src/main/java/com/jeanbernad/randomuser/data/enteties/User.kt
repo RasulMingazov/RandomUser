@@ -1,28 +1,10 @@
 package com.jeanbernad.randomuser.data.enteties
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import com.jeanbernad.randomuser.data.enteties.info.Info
 import com.jeanbernad.randomuser.data.enteties.result.Result
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-
-@Entity(tableName = "users")
-data class MinimalUser(
-        @PrimaryKey(autoGenerate = true)
-        val id: Long = 0,
-        val fullName: String = "",
-        val birthday: String = "",
-        val gender: String = "",
-        val phone: String = "",
-        val mail: String =  "",
-        val country: String = "",
-        val city: String = "",
-        val fullAddress: String = "",
-        val coordinates: String = "",
-        val picture: String = ""
-)
 
 data class User(
         val info: Info,
@@ -53,7 +35,7 @@ data class User(
     private fun birthday() : String {
         val birthday = this.results[0].dob.date.substring(0, this.results[0].dob.date.length - 1)
         val dateTime: LocalDateTime = LocalDateTime.parse(birthday, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"))
-        val format: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.mm.yyyy")
+        val format: DateTimeFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         return format.format(dateTime)
     }
 }

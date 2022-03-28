@@ -13,9 +13,9 @@ interface UserDao {
     @Query("SELECT * FROM users ORDER BY RANDOM() LIMIT 1")
     fun user(): LiveData<MinimalUser>
 
+    @Query("SELECT * FROM users")
+    fun allUsers(): LiveData<List<MinimalUser>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(user: MinimalUser)
-
-
 }
