@@ -105,8 +105,6 @@ class UserFragment : Fragment() {
                     Log.d("UserFragment", "User upload success")
                 },
                 error = {
-                    Toast.makeText(requireContext(), "Some problems, try later", Toast.LENGTH_SHORT)
-                        .show()
                     Log.d("UserFragment", "Mistake while user upload")
                 },
                 loading = {
