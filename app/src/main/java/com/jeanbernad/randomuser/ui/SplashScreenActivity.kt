@@ -6,7 +6,7 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.jeanbernad.randomuser.R
-import com.jeanbernad.randomuser.extensions.toMainActivity
+import com.jeanbernad.randomuser.utils.toMainActivity
 
 class SplashScreenActivity: AppCompatActivity() {
 
@@ -17,6 +17,8 @@ class SplashScreenActivity: AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             toMainActivity()
-        }, 1000L)
+        }, splashScreenDuration())
     }
+
+    fun splashScreenDuration() = 1000L
 }
