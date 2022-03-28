@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.jeanbernad.randomuser.data.enteties.MinimalUser
 import com.jeanbernad.randomuser.data.enteties.User
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import com.jeanbernad.randomuser.utils.autoCleared
@@ -22,7 +23,7 @@ import java.util.*
 
 @AndroidEntryPoint
 class UserFragment : Fragment() {
-    private val viewModel: UserViewModel<User> by viewModels()
+    private val viewModel: UserViewModel<MinimalUser> by viewModels()
     private var binding: FragmentUserBinding by autoCleared()
     private lateinit var userToString: String
 
@@ -80,25 +81,27 @@ class UserFragment : Fragment() {
         viewModel.user.observe(viewLifecycleOwner, {
             viewModel.bind(it,
                 success = {
-                    val user = it.data!!
-                    binding.name.text = user.fullName()
-                    binding.birthdayDate.text = user.birthday()
-                    binding.addressName.text = user.fullAddress()
-                    binding.genderValue.text = user.gender()
-                    binding.phoneNumber.text = user.phone()
-                    binding.mailValue.text = user.mail()
-                    binding.countyName.text = user.country()
-                    binding.cityName.text = user.city()
-                    binding.coordinatesValue.text = user.coordinates()
-                    Glide.with(binding.root)
-                        .load(user.results[0].picture.medium)
-                        .transform(CircleCrop())
-                        .into(binding.avatar)
+                    if (it.data != null) {
+                        val user = it.data
+                        binding.name.text = user.fullName
+                        binding.birthdayDate.text = user.birthday
+                        binding.addressName.text = user.fullAddress
+                        binding.genderValue.text = user.gender
+                        binding.phoneNumber.text = user.phone
+                        binding.mailValue.text = user.mail
+                        binding.countyName.text = user.country
+                        binding.cityName.text = user.city
+                        binding.coordinatesValue.text = user.coordinates
+                        Glide.with(binding.root)
+                                .load(user.picture)
+                                .transform(CircleCrop())
+                                .into(binding.avatar)
 
-                    binding.progressBar.visibility = View.GONE
-                    binding.container.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+                        binding.container.visibility = View.VISIBLE
 
-                    userToString = user.toString()
+                        userToString = user.toString()
+                    }
                     Log.d("UserFragment", "User upload success")
                 },
                 error = {

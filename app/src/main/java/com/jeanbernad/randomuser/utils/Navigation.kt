@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.extensions
+package com.jeanbernad.randomuser.utils
 
 import android.app.Activity
 import android.content.Intent

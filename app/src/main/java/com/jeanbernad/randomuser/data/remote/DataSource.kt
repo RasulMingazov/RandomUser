@@ -1,18 +1,21 @@
 package com.jeanbernad.randomuser.data.remote
 
 import android.util.Log
+import com.jeanbernad.randomuser.data.enteties.MinimalUser
+import com.jeanbernad.randomuser.data.enteties.User
 import com.jeanbernad.randomuser.utils.Resource
 import retrofit2.Response
 
+
 abstract class DataSource {
-    protected suspend fun <T> getResult(call: suspend () -> Response<T>): Resource<T> {
+    protected suspend fun  getResult(call: suspend () -> Response<User>): Resource<MinimalUser> {
         try {
             val response = call()
             if (response.isSuccessful) {
-                val body = response.body()
+                val body: User? = response.body()
                 if (body != null) {
                     Log.d("DataSource", "Success")
-                    return Resource.success(body)
+                    return Resource.success(body.minimalUser())
                 }
             }
             Log.d("DataSource",  " ${response.code()} ${response.message()}")

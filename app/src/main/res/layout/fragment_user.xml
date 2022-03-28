@@ -64,7 +64,6 @@
                     android:layout_height="@dimen/user_avatar_size"
                     android:layout_marginStart="@dimen/user_avatar_margin"
                     android:layout_marginTop="@dimen/user_avatar_margin"
-                    android:src="@drawable/saas"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
