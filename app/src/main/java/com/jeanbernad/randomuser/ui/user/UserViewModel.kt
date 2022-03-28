@@ -4,7 +4,6 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.jeanbernad.randomuser.data.enteties.MinimalUser
-import com.jeanbernad.randomuser.data.enteties.User
 import com.jeanbernad.randomuser.data.repository.UserRepository
 import com.jeanbernad.randomuser.ui.base.BaseViewModel
 import com.jeanbernad.randomuser.utils.Resource

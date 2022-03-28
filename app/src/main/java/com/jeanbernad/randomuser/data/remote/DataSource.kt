@@ -8,7 +8,7 @@ import retrofit2.Response
 
 
 abstract class DataSource {
-    protected suspend fun  getResult(call: suspend () -> Response<User>): Resource<MinimalUser> {
+    protected suspend fun  getUserResult(call: suspend () -> Response<User>): Resource<MinimalUser> {
         try {
             val response = call()
             if (response.isSuccessful) {

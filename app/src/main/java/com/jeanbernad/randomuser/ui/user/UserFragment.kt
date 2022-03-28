@@ -8,13 +8,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.jeanbernad.randomuser.data.enteties.MinimalUser
-import com.jeanbernad.randomuser.data.enteties.User
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import com.jeanbernad.randomuser.utils.autoCleared
 import dagger.hilt.android.AndroidEntryPoint
