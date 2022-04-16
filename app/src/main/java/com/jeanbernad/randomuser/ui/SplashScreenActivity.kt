@@ -1,5 +1,6 @@
 package com.jeanbernad.randomuser.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.jeanbernad.randomuser.R
 import com.jeanbernad.randomuser.extensions.toMainActivity
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

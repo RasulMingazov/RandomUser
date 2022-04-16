@@ -20,7 +20,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.jeanbernad.coroutinetrain"
+        applicationId "com.jeanbernad.randomuser"
         minSdk 26
         targetSdk 31
         versionCode 1
@@ -96,6 +96,8 @@ dependencies {
 
     //SwipeRefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
+
+    implementation "androidx.core:core-splashscreen:$splashscreen_version"
 }
 
 kapt {
