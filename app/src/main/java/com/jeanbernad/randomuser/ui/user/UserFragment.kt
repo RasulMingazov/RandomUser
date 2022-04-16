@@ -51,7 +51,7 @@ class UserFragment : Fragment() {
             }
         }
 
-        binding.dataLocation.setOnClickListener {
+binding.dataLocation.setOnClickListener {
             Intent(Intent.ACTION_VIEW).apply {
                 data = Uri.parse(
                     String.format(
@@ -74,10 +74,21 @@ class UserFragment : Fragment() {
             }
         }
 
+        binding.share.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, userToString)
+                type = "text/plain"
+            }
+            Intent.createChooser(sendIntent, null).apply {
+                startActivity(this)
+            }
+        }
+
         viewModel.user.observe(viewLifecycleOwner) {
             viewModel.bind(it,
                 success = {
-                    val user = it.data!!
+                   val user = it.data!!
                     binding.name.text = user.fullName()
                     binding.birthdayDate.text = user.birthday()
                     binding.addressName.text = user.fullAddress()
