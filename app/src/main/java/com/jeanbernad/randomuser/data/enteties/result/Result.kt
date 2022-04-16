@@ -1,10 +1,6 @@
 package com.jeanbernad.randomuser.data.enteties.result
 
-import android.os.Parcelable
-import androidx.room.Embedded
-
 import com.jeanbernad.randomuser.data.enteties.result.location.Location
-import kotlinx.android.parcel.Parcelize
 
 data class Result(
         val id: Id,
