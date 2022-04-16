@@ -15,7 +15,7 @@ abstract class DataSource {
                     return Resource.success(body)
                 }
             }
-            Log.d("DataSource",  " ${response.code()} ${response.message()}")
+            Log.d("DataSource", " ${response.code()} ${response.message()}")
             return error(" ${response.code()} ${response.message()}")
         } catch (e: Exception) {
             return error(e.message ?: e.toString())
@@ -23,7 +23,7 @@ abstract class DataSource {
     }
 
     private fun <T> error(message: String): Resource<T> {
-        Log.d("DataSource","Network call has failed for a following reason: $message" )
+        Log.d("DataSource", "Network call has failed for a following reason: $message")
         return Resource.error("Network call has failed for a following reason: $message")
     }
 }

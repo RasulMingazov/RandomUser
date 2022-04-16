@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import com.jeanbernad.randomuser.R
 import com.jeanbernad.randomuser.extensions.toMainActivity
 
-class SplashScreenActivity: AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
