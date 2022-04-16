@@ -16,7 +16,6 @@ import com.jeanbernad.randomuser.data.enteties.User
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import com.jeanbernad.randomuser.utils.autoCleared
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 
 class UserFragment : Fragment() {
@@ -48,18 +47,6 @@ class UserFragment : Fragment() {
                 type = ClipDescription.MIMETYPE_TEXT_PLAIN
                 putExtra(Intent.EXTRA_EMAIL, arrayListOf("${binding.mailValue.text}"))
                 startActivity(Intent.createChooser(this, ""))
-            }
-        }
-
-binding.dataLocation.setOnClickListener {
-            Intent(Intent.ACTION_VIEW).apply {
-                data = Uri.parse(
-                    String.format(
-                        Locale.ENGLISH,
-                        "geo:${binding.latitudeValue.text},${binding.longitudeValue.text}"
-                    )
-                )
-                startActivity(this)
             }
         }
 
@@ -97,8 +84,7 @@ binding.dataLocation.setOnClickListener {
                     binding.mailValue.text = user.mail()
                     binding.countyName.text = user.country()
                     binding.cityName.text = user.city()
-                    binding.longitudeValue.text = user.longitude()
-                    binding.latitudeValue.text = user.latitude()
+                    binding.coordinatesValue.text = user.coordinates()
                     Glide.with(binding.root)
                         .load(user.results[0].picture.medium)
                         .transform(CircleCrop())
