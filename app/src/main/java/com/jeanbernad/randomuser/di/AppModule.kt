@@ -1,41 +1,51 @@
 package com.jeanbernad.randomuser.di
 
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.jeanbernad.randomuser.data.enteties.User
 import com.jeanbernad.randomuser.data.remote.RemoteDataSource
 import com.jeanbernad.randomuser.data.remote.UserService
 import com.jeanbernad.randomuser.data.repository.UserRepository
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
+import com.jeanbernad.randomuser.ui.user.UserViewModel
+import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
-@Module
-@InstallIn(ApplicationComponent::class)
-object AppModule {
 
-    @Singleton
-    @Provides
-    fun provideRetrofit(gson: Gson) : Retrofit = Retrofit.Builder()
-            .baseUrl("https://randomuser.me/api/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
+val viewModelModule = module {
+    single { UserViewModel<User>(get()) }
+}
 
-    @Provides
-    fun provideGson(): Gson = GsonBuilder().create()
+val serviceModule = module {
+    fun provideUserService(retrofit: Retrofit) =
+        retrofit.create(UserService::class.java)
 
-    @Provides
-    fun provideUserService(retrofit: Retrofit): UserService = retrofit.create(UserService::class.java)
+    fun provideRemoteDataSource(userService: UserService) =
+        RemoteDataSource(userService)
 
-    @Singleton
-    @Provides
-    fun provideRemoteDataSource(userService: UserService) = RemoteDataSource(userService)
+    single { provideUserService(get()) }
+    single { provideRemoteDataSource(get()) }
 
-    @Singleton
-    @Provides
-    fun provideRepository(remoteDataSource: RemoteDataSource)
-    =  UserRepository(remoteDataSource)
+}
+
+val netModule = module {
+    fun provideGson(): Gson =
+        GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create()
+
+    fun provideRetrofit(gson: Gson): Retrofit = Retrofit.Builder()
+        .baseUrl("https://randomuser.me/api/")
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+
+    single { provideGson() }
+    single {
+        provideRetrofit(get())
+    }
+}
+
+val repositoryModule = module {
+    fun provideRepository(remoteDataSource: RemoteDataSource) = UserRepository(remoteDataSource)
+
+    single { provideRepository(get()) }
 }

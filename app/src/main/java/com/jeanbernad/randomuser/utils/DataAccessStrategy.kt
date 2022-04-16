@@ -6,8 +6,8 @@ import kotlinx.coroutines.Dispatchers
 
 fun <T> performGetOperation(call: suspend () -> Resource<T>):
         LiveData<Resource<T>> =
-        liveData(Dispatchers.IO) {
-            emit(Resource.loading())
-            val resourceStatus = call.invoke()
-            this.emit(resourceStatus)
-        }
+    liveData(Dispatchers.IO) {
+        emit(Resource.loading())
+        val resourceStatus = call.invoke()
+        this.emit(resourceStatus)
+    }

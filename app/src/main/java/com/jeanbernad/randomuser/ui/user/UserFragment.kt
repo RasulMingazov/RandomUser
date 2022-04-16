@@ -10,19 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.jeanbernad.randomuser.data.enteties.User
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import com.jeanbernad.randomuser.utils.autoCleared
-import dagger.hilt.android.AndroidEntryPoint
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
 
-@AndroidEntryPoint
 class UserFragment : Fragment() {
-    private val viewModel: UserViewModel<User> by viewModels()
+    private val viewModel by viewModel<UserViewModel<User>>()
     private var binding: FragmentUserBinding by autoCleared()
     private lateinit var userToString: String
 
@@ -53,13 +51,12 @@ class UserFragment : Fragment() {
             }
         }
 
-        binding.coordinatesBlock.setOnClickListener {
+binding.dataLocation.setOnClickListener {
             Intent(Intent.ACTION_VIEW).apply {
-                val coordinates = binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
                 data = Uri.parse(
                     String.format(
                         Locale.ENGLISH,
-                        "geo:${coordinates[0]},${coordinates[1]}"
+                        "geo:${binding.latitudeValue.text},${binding.longitudeValue.text}"
                     )
                 )
                 startActivity(this)
@@ -77,10 +74,21 @@ class UserFragment : Fragment() {
             }
         }
 
-        viewModel.user.observe(viewLifecycleOwner, {
+        binding.share.setOnClickListener {
+            val sendIntent: Intent = Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, userToString)
+                type = "text/plain"
+            }
+            Intent.createChooser(sendIntent, null).apply {
+                startActivity(this)
+            }
+        }
+
+        viewModel.user.observe(viewLifecycleOwner) {
             viewModel.bind(it,
                 success = {
-                    val user = it.data!!
+                   val user = it.data!!
                     binding.name.text = user.fullName()
                     binding.birthdayDate.text = user.birthday()
                     binding.addressName.text = user.fullAddress()
@@ -89,7 +97,8 @@ class UserFragment : Fragment() {
                     binding.mailValue.text = user.mail()
                     binding.countyName.text = user.country()
                     binding.cityName.text = user.city()
-                    binding.coordinatesValue.text = user.coordinates()
+                    binding.longitudeValue.text = user.longitude()
+                    binding.latitudeValue.text = user.latitude()
                     Glide.with(binding.root)
                         .load(user.results[0].picture.medium)
                         .transform(CircleCrop())
@@ -112,7 +121,7 @@ class UserFragment : Fragment() {
                     Log.d("UserFragment", "User loading")
                 }
             )
-        })
+        }
 
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.refresh()

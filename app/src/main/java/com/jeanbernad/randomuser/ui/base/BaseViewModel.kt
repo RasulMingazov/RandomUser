@@ -12,7 +12,7 @@ abstract class BaseViewModel<T> : ViewModel() {
         reloadTrigger.value = true
     }
 
-    fun bind(resource: Resource<T>, success: () -> Unit, error: () -> Unit, loading: () -> Unit) {
+    inline fun bind(resource: Resource<T>, success: () -> Unit, error: () -> Unit, loading: () -> Unit) {
         when (resource.status) {
             Resource.Status.SUCCESS ->
                 success()
