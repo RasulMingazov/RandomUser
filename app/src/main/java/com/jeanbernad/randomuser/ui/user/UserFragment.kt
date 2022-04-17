@@ -16,6 +16,7 @@ import com.jeanbernad.randomuser.data.enteties.User
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import com.jeanbernad.randomuser.utils.autoCleared
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 
 class UserFragment : Fragment() {
@@ -50,13 +51,15 @@ class UserFragment : Fragment() {
             }
         }
 
-        binding.share.setOnClickListener {
-            val sendIntent: Intent = Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, userToString)
-                type = "text/plain"
-            }
-            Intent.createChooser(sendIntent, null).apply {
+        binding.coordinatesBlock.setOnClickListener {
+            Intent(Intent.ACTION_VIEW).apply {
+                val coordinates = binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
+                data = Uri.parse(
+                    String.format(
+                        Locale.ENGLISH,
+                        "geo:${coordinates[0]},${coordinates[1]}"
+                    )
+                )
                 startActivity(this)
             }
         }
