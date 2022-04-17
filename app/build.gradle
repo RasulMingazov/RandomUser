@@ -15,10 +15,6 @@ android {
         enabled = true
     }
 
-    buildFeatures {
-        viewBinding true
-    }
-
     defaultConfig {
         applicationId "com.jeanbernad.randomuser"
         minSdk 26
@@ -96,8 +92,6 @@ dependencies {
 
     //SwipeRefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
-
-    implementation "androidx.core:core-splashscreen:$splashscreen_version"
 }
 
 kapt {
