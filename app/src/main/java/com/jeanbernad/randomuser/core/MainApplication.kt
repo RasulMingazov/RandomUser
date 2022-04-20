@@ -6,7 +6,6 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jeanbernad.randomuser.BuildConfig
 import com.jeanbernad.randomuser.data.remote.UserService
-import com.jeanbernad.randomuser.y_di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
