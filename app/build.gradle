@@ -92,6 +92,7 @@ dependencies {
 
     //SwipeRefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
+
 }
 
 kapt {
