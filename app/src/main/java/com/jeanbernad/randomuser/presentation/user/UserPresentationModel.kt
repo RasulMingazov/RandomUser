@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.presentation
+package com.jeanbernad.randomuser.presentation.user
 
 import com.jeanbernad.randomuser.core.Abstract
 
@@ -9,11 +9,11 @@ sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel
     class Base(
         private val id: String
         ) : UserPresentationModel() {
-        override fun map(mapper: StringMapper) = mapper.map(id = id)
+        override fun map(mapper: StringMapper) = mapper.map(id)
     }
 
     data class Fail(private val message: String) : UserPresentationModel() {
-        override fun map(mapper: StringMapper) = mapper.map(errorMessage = message, false)
+        override fun map(mapper: StringMapper) = mapper.map(message, false)
     }
 
     interface StringMapper : Abstract.Mapper {
