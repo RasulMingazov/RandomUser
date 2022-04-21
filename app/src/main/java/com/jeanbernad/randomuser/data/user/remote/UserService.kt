@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.data.remote
+package com.jeanbernad.randomuser.data.user.remote
 
 import retrofit2.http.GET
 

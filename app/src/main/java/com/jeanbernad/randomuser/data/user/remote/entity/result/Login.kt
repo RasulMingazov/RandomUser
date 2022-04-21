@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.data.remote.entity.result
+package com.jeanbernad.randomuser.data.user.remote.entity.result
 
 data class Login(
     val md5: String,

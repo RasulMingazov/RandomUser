@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.data.remote.entity.info
+package com.jeanbernad.randomuser.data.user.remote.entity.info
 
 data class Info(
         val page: Int,
