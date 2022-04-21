@@ -1,7 +1,7 @@
 package com.jeanbernad.randomuser.data
 
 import com.jeanbernad.randomuser.core.Abstract
-import com.jeanbernad.randomuser.domain.UserDomain
+import com.jeanbernad.randomuser.domain.user.UserDomain
 
 interface UserDataToDomainMapper<T> : Abstract.Mapper {
     fun map(id: String): T

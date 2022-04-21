@@ -2,8 +2,7 @@ package com.jeanbernad.randomuser.data
 
 import com.jeanbernad.randomuser.core.Abstract
 import com.jeanbernad.randomuser.domain.ErrorType
-import com.jeanbernad.randomuser.domain.UserDomain
-import com.jeanbernad.randomuser.domain.UsersDomain
+import com.jeanbernad.randomuser.domain.user.UserDomain
 import retrofit2.HttpException
 import java.net.UnknownHostException
 
