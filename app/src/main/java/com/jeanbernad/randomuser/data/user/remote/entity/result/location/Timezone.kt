@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.data.remote.entity.result.location
+package com.jeanbernad.randomuser.data.user.remote.entity.result.location
 
 data class Timezone(
     val description: String,
