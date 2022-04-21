@@ -1,10 +1,10 @@
-package com.jeanbernad.randomuser.data.remote
+package com.jeanbernad.randomuser.data.user.remote
 
 import android.location.Location
 import com.jeanbernad.randomuser.core.Abstract
-import com.jeanbernad.randomuser.data.ToUserMapper
-import com.jeanbernad.randomuser.data.UserData
-import com.jeanbernad.randomuser.data.remote.entity.result.*
+import com.jeanbernad.randomuser.data.user.ToUserMapper
+import com.jeanbernad.randomuser.data.user.UserData
+import com.jeanbernad.randomuser.data.user.remote.entity.result.*
 
 data class UserRemoteModel(
     val id: Id,
