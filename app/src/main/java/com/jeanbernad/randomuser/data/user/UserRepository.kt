@@ -1,9 +1,4 @@
-package com.jeanbernad.randomuser.data.user.remote
-
-import com.jeanbernad.randomuser.data.user.ToUserMapper
-import com.jeanbernad.randomuser.data.user.UserData
-import com.jeanbernad.randomuser.data.user.UserDataToDomainMapper
-import com.jeanbernad.randomuser.data.user.UserRemoteDataSource
+package com.jeanbernad.randomuser.data.user
 
 interface UserRepository<T> {
     suspend fun user(): T
