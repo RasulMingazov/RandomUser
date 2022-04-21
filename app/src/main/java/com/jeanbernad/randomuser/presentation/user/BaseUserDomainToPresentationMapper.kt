@@ -2,7 +2,7 @@ package com.jeanbernad.randomuser.presentation.user
 
 import com.jeanbernad.randomuser.core.ErrorPresentationMapper
 import com.jeanbernad.randomuser.domain.ErrorType
-import com.jeanbernad.randomuser.domain.UserDomainToPresentationMapper
+import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
 
 
 class BaseUserDomainToPresentationMapper(
