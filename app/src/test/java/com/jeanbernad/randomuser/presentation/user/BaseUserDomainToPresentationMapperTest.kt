@@ -7,7 +7,6 @@ import com.jeanbernad.randomuser.domain.ErrorType
 import org.junit.Test
 import org.junit.Assert.assertEquals
 
-
 class BaseUserDomainToPresentationMapperTest {
 
     private val resourceProvider = TestResourceProvider()

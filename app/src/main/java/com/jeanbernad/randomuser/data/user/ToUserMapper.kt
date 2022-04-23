@@ -17,7 +17,6 @@ interface ToUserMapper : Abstract.Mapper {
     class Base : ToUserMapper {
         override fun map(userRemoteModel: UserRemoteModel) =
             UserData.Success(
-                id = userRemoteModel.id.value,
                 fullName = "${userRemoteModel.name.title} ${userRemoteModel.name.first} ${userRemoteModel.name.last}",
                 fullAddress = "${userRemoteModel.location.street.name}, ${userRemoteModel.location.street.number}",
                 gender = userRemoteModel.gender.replaceFirstChar {

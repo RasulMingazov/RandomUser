@@ -8,7 +8,6 @@ import java.net.UnknownHostException
 
 interface UserDataToDomainMapper<T> : Abstract.Mapper {
     fun map(
-        id: String,
         fullName: String,
         fullAddress: String,
         gender: String,
@@ -25,7 +24,6 @@ interface UserDataToDomainMapper<T> : Abstract.Mapper {
 
 class BaseUserDataToDomainMapper : UserDataToDomainMapper<UserDomain> {
     override fun map(
-        id: String,
         fullName: String,
         fullAddress: String,
         gender: String,
@@ -36,7 +34,6 @@ class BaseUserDataToDomainMapper : UserDataToDomainMapper<UserDomain> {
         coordinates: String,
         birthday: String
     ) = UserDomain.Success(
-        id,
         fullName,
         fullAddress,
         gender,
@@ -49,10 +46,10 @@ class BaseUserDataToDomainMapper : UserDataToDomainMapper<UserDomain> {
     )
 
     override fun map(exception: Exception) = UserDomain.Fail(
-        when (exception) {
-            is UnknownHostException -> ErrorType.NO_CONNECTION
-            is HttpException -> ErrorType.SERVICE_UNAVAILABLE
-            else -> ErrorType.GENERIC
-        }
-    )
+            when (exception) {
+                is UnknownHostException -> ErrorType.NO_CONNECTION
+                is HttpException -> ErrorType.SERVICE_UNAVAILABLE
+                else -> ErrorType.GENERIC
+            }
+        )
 }

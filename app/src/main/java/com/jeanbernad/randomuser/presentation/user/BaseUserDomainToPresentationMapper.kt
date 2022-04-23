@@ -9,7 +9,6 @@ class BaseUserDomainToPresentationMapper(
 ) : UserDomainToPresentationMapper<UserPresentationModel> {
 
     override fun map(
-        id: String,
         fullName: String,
         fullAddress: String,
         gender: String,
@@ -20,7 +19,6 @@ class BaseUserDomainToPresentationMapper(
         coordinates: String,
         birthday: String
     ) = UserPresentationModel.Success(
-        id,
         fullName,
         fullAddress,
         gender,

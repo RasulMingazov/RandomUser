@@ -1,25 +1,33 @@
 package com.jeanbernad.randomuser.presentation.user
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
 import com.jeanbernad.randomuser.domain.user.UserInteractor
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
-class UserViewModel constructor(
+class UserViewModel(
     private val interactor: UserInteractor,
     private val presentationMapper: UserDomainToPresentationMapper<UserPresentationModel>,
-    private val communication: UserCommunication
 ) : ViewModel() {
 
-    fun getInfo() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val uiInfo = interactor.user().map(presentationMapper)
-            withContext(Dispatchers.Main) {
-                communication.map(uiInfo)
+    private var reloadTrigger = MutableLiveData<Boolean>()
+
+    init {
+        refresh()
+    }
+
+    val user = Transformations.switchMap(reloadTrigger) {
+        liveData(Dispatchers.IO) {
+            emit(UserPresentationModel.Progress)
+            val presentationUser = interactor.user().map(presentationMapper)
+            withContext(Dispatchers.IO) {
+                emit(presentationUser)
+                emit(UserPresentationModel.Complete)
             }
         }
+    }
+
+    fun refresh() {
+        reloadTrigger.value = true
     }
 }

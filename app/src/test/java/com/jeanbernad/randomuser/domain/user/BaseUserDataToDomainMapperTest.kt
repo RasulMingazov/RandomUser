@@ -6,18 +6,13 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.net.UnknownHostException
 
-/**
- * Test for [BasePokemonsDataToDomainMapper]
- *
- * **/
-class BasePokemonsDataToDomainMapperTest {
+class BaseUserDataToDomainMapperTest {
 
     private val mapper = BaseUserDataToDomainMapper()
 
     @Test
     fun test_success() {
         val actual = mapper.map(
-            "test_id",
             "Mrs Pollari Matilda",
             "Satakennankatu, 3173",
             "Female",
@@ -30,7 +25,6 @@ class BasePokemonsDataToDomainMapperTest {
         )
 
         val expected = UserDomain.Success(
-            "test_id",
             "Mrs Pollari Matilda",
             "Satakennankatu, 3173",
             "Female",
@@ -41,7 +35,7 @@ class BasePokemonsDataToDomainMapperTest {
             "(-12.0643, 53.7063)",
             "11.07.1945"
         )
-        assertEquals(1, 1)
+        assertEquals(actual, expected)
     }
 
     @Test

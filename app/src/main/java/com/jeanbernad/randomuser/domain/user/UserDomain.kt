@@ -7,7 +7,6 @@ sealed class UserDomain {
     abstract fun <T> map(mapper: UserDomainToPresentationMapper<T>): T
 
     data class Success(
-        private val id: String,
         private val fullName: String,
         private val fullAddress: String,
         private val gender: String,
@@ -19,7 +18,6 @@ sealed class UserDomain {
         private val birthday: String
     ) : UserDomain() {
         override fun <T> map(mapper: UserDomainToPresentationMapper<T>): T = mapper.map(
-            id,
             fullName,
             fullAddress,
             gender,

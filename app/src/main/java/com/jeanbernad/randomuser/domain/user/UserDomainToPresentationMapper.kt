@@ -5,7 +5,6 @@ import com.jeanbernad.randomuser.domain.ErrorType
 
 interface UserDomainToPresentationMapper<T> : Abstract.Mapper {
     fun map(
-        id: String,
         fullName: String,
         fullAddress: String,
         gender: String,

@@ -5,8 +5,9 @@ import com.jeanbernad.randomuser.core.Abstract
 sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel.StringMapper> {
     override fun map(mapper: StringMapper) = Unit
 
+    object Complete : UserPresentationModel()
+    object Progress : UserPresentationModel()
     class Success(
-        private val id: String,
         private val fullName: String,
         private val fullAddress: String,
         private val gender: String,
@@ -18,7 +19,6 @@ sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel
         private val birthday: String
     ) : UserPresentationModel() {
         override fun map(mapper: StringMapper) = mapper.map(
-            id,
             fullName,
             fullAddress,
             gender,
@@ -37,7 +37,6 @@ sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel
 
     interface StringMapper : Abstract.Mapper {
         fun map(
-            id: String,
             fullName: String,
             fullAddress: String,
             gender: String,
@@ -47,8 +46,17 @@ sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel
             city: String,
             coordinates: String,
             birthday: String
-        )
+        ) {
+            /*
+            I need this function only for success state
+             */
+        }
 
-        fun map(errorMessage: String)
+        fun map(errorMessage: String) {
+            /*
+            I need this function only for fail state
+             */
+        }
     }
+
 }

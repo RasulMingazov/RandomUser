@@ -1,6 +1,7 @@
 package com.jeanbernad.randomuser.domain.user
 
-import com.jeanbernad.randomuser.data.user.remote.UserRepository
+import com.jeanbernad.randomuser.data.user.UserRepository
+
 
 interface UserInteractor {
     suspend fun user(): UserDomain

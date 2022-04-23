@@ -8,14 +8,14 @@ import java.lang.NullPointerException
 class AbstractTest {
 
     @Test
-    fun test_1() {
+    fun test_success() {
         val dataObject = TestDataObject.Success(2, 3)
         val domainObject = dataObject.map(DataMapper.Base())
         assertTrue(domainObject is DomainObject.Success)
     }
 
     @Test
-    fun test_2() {
+    fun test_fail() {
         val dataObject = TestDataObject.Fail(NullPointerException())
         val domainObject = dataObject.map(DataMapper.Base())
         assertTrue(domainObject is DomainObject.Fail)

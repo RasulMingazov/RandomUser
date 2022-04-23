@@ -6,7 +6,6 @@ interface UserData : Abstract.DataObject {
     fun <T> map(mapper: UserDataToDomainMapper<T>): T
 
     data class Success(
-        private val id: String,
         private val fullName: String,
         private val fullAddress: String,
         private val gender: String,
@@ -18,7 +17,6 @@ interface UserData : Abstract.DataObject {
         private val birthday: String
     ) : UserData {
         override fun <T> map(mapper: UserDataToDomainMapper<T>) = mapper.map(
-            id,
             fullName,
             fullAddress,
             gender,
