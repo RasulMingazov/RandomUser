@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.jeanbernad.randomuser.ui.user.UserFragment"
-        android:label="Sign in"
+        android:name="com.jeanbernad.randomuser.presentation.user.UserFragment"
+        android:label="User"
         tools:layout="@layout/fragment_user">
     </fragment>
 
