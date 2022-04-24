@@ -5,7 +5,6 @@ import com.jeanbernad.randomuser.core.Abstract
 sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel.StringMapper> {
     override fun map(mapper: StringMapper) = Unit
 
-    object Complete : UserPresentationModel()
     object Progress : UserPresentationModel()
     class Success(
         private val fullName: String,

@@ -22,7 +22,6 @@ class UserViewModel(
             val presentationUser = interactor.user().map(presentationMapper)
             withContext(Dispatchers.IO) {
                 emit(presentationUser)
-                emit(UserPresentationModel.Complete)
             }
         }
     }

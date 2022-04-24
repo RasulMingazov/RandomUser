@@ -34,18 +34,17 @@ class UserFragment : Fragment() {
         ) {
             when (it) {
                 is UserPresentationModel.Progress -> {
+                    binding.error.visibility = View.GONE
                     binding.container.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
-                }
-                is UserPresentationModel.Complete -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.container.visibility = View.VISIBLE
                 }
                 is UserPresentationModel.Fail -> {
                     it.map(object : UserPresentationModel.StringMapper {
                         override fun map(errorMessage: String) {
-                            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT)
-                                .show()
+                            Toast.makeText(requireContext(), errorMessage,Toast.LENGTH_SHORT).show()
+                            binding.progressBar.visibility = View.GONE
+                            binding.error.visibility = View.VISIBLE
+                            binding.error.text = errorMessage
                         }
                     })
                 }
@@ -72,6 +71,8 @@ class UserFragment : Fragment() {
                             binding.countyName.text = country
                             binding.cityName.text = city
                             binding.coordinatesValue.text = coordinates
+                            binding.progressBar.visibility = View.GONE
+                            binding.container.visibility = View.VISIBLE
                         }
                     })
                 }
