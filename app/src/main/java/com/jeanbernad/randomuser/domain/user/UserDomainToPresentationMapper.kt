@@ -13,7 +13,8 @@ interface UserDomainToPresentationMapper<T> : Abstract.Mapper {
         country: String,
         city: String,
         coordinates: String,
-        birthday: String
+        birthday: String,
+        image: String
     ): T
 
     fun map(errorType: ErrorType): T
