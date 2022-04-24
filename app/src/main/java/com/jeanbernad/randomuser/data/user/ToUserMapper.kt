@@ -38,7 +38,8 @@ interface ToUserMapper : Abstract.Mapper {
                             ),
                             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
                         )
-                    )
+                    ),
+                image = userRemoteModel.picture.large
             )
 
         override fun map(exception: Exception) = UserData.Fail(exception)
