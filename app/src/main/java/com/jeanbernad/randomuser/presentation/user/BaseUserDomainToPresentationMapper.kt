@@ -17,7 +17,8 @@ class BaseUserDomainToPresentationMapper(
         country: String,
         city: String,
         coordinates: String,
-        birthday: String
+        birthday: String,
+        image: String
     ) = UserPresentationModel.Success(
         fullName,
         fullAddress,
@@ -27,7 +28,8 @@ class BaseUserDomainToPresentationMapper(
         country,
         city,
         coordinates,
-        birthday
+        birthday,
+        image
     )
 
     override fun map(errorType: ErrorType) = UserPresentationModel.Fail(errorMapper.map(errorType))

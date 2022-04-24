@@ -15,7 +15,8 @@ sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel
         private val country: String,
         private val city: String,
         private val coordinates: String,
-        private val birthday: String
+        private val birthday: String,
+        private val image: String
     ) : UserPresentationModel() {
         override fun map(mapper: StringMapper) = mapper.map(
             fullName,
@@ -26,7 +27,8 @@ sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel
             country,
             city,
             coordinates,
-            birthday
+            birthday,
+            image
         )
     }
 
@@ -44,7 +46,8 @@ sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel
             country: String,
             city: String,
             coordinates: String,
-            birthday: String
+            birthday: String,
+            image: String
         ) {
             /*
             I need this function only for success state
