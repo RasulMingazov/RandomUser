@@ -15,7 +15,8 @@ class BaseUserDataToDomainMapper : UserDataToDomainMapper<UserDomain> {
         country: String,
         city: String,
         coordinates: String,
-        birthday: String
+        birthday: String,
+        image: String
     ) = UserDomain.Success(
         fullName,
         fullAddress,
@@ -25,7 +26,8 @@ class BaseUserDataToDomainMapper : UserDataToDomainMapper<UserDomain> {
         country,
         city,
         coordinates,
-        birthday
+        birthday,
+        image
     )
 
     override fun map(exception: Exception) = UserDomain.Fail(
