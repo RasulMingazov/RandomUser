@@ -1,7 +1,6 @@
 package com.jeanbernad.randomuser.domain.user
 
-import com.jeanbernad.randomuser.data.user.BaseUserDataToDomainMapper
-import com.jeanbernad.randomuser.domain.ErrorType
+import com.jeanbernad.randomuser.core.ErrorType
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.net.UnknownHostException

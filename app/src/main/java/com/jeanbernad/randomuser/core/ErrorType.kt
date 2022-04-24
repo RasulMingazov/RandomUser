@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.domain
+package com.jeanbernad.randomuser.core
 
 enum class ErrorType {
     NO_CONNECTION,

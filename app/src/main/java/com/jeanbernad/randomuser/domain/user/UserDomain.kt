@@ -1,6 +1,6 @@
 package com.jeanbernad.randomuser.domain.user
 
-import com.jeanbernad.randomuser.domain.ErrorType
+import com.jeanbernad.randomuser.core.ErrorType
 
 sealed class UserDomain {
 

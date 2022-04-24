@@ -1,7 +1,6 @@
 package com.jeanbernad.randomuser.core
 
 import com.jeanbernad.randomuser.R
-import com.jeanbernad.randomuser.domain.ErrorType
 
 interface ErrorPresentationMapper {
     fun map(errorType: ErrorType): String

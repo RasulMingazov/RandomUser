@@ -3,7 +3,7 @@ package com.jeanbernad.randomuser.presentation.user
 import com.jeanbernad.randomuser.R
 import com.jeanbernad.randomuser.core.ErrorPresentationMapper
 import com.jeanbernad.randomuser.core.ResourceProvider
-import com.jeanbernad.randomuser.domain.ErrorType
+import com.jeanbernad.randomuser.core.ErrorType
 import org.junit.Test
 import org.junit.Assert.assertEquals
 
