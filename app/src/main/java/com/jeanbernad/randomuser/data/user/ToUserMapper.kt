@@ -12,6 +12,19 @@ interface ToUserMapper : Abstract.Mapper {
         userRemoteModel: UserRemoteModel
     ): UserData.Success
 
+    fun map(
+        fullName: String,
+        fullAddress: String,
+        gender: String,
+        phone: String,
+        mail: String,
+        country: String,
+        city: String,
+        coordinates: String,
+        birthday: String,
+        image: String
+    ): UserData.Success
+
     fun map(exception: Exception): UserData.Fail
 
     class Base : ToUserMapper {
@@ -41,6 +54,21 @@ interface ToUserMapper : Abstract.Mapper {
                     ),
                 image = userRemoteModel.picture.large
             )
+
+        override fun map(
+            fullName: String,
+            fullAddress: String,
+            gender: String,
+            phone: String,
+            mail: String,
+            country: String,
+            city: String,
+            coordinates: String,
+            birthday: String,
+            image: String
+        ) = UserData.Success(
+            fullName, fullAddress, gender, phone, mail, country, city, coordinates, birthday, image
+        )
 
         override fun map(exception: Exception) = UserData.Fail(exception)
     }

@@ -115,9 +115,9 @@ class UserFragment : Fragment() {
                             binding.countyName.text = country
                             binding.cityName.text = city
                             binding.coordinatesValue.text = coordinates
+                            ImageLoader.BaseGlide(image).load(binding.avatar)
                             binding.progressBar.visibility = View.GONE
                             binding.container.visibility = View.VISIBLE
-                            ImageLoader.BaseGlide(image).load(binding.avatar)
                         }
                     })
                 }
