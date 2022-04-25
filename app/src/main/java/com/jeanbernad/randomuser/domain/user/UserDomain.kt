@@ -27,7 +27,8 @@ sealed class UserDomain {
             country,
             city,
             coordinates,
-            birthday
+            birthday,
+            image
         )
     }
 
