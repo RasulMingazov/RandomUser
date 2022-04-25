@@ -12,5 +12,4 @@ Android - приложение, загружающее информацию из
 1. Kotlin Coroutines
 1. Retrofit
 1. Glide
-1. Room
 1. Navigation
