@@ -6,7 +6,8 @@ import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Coordin
 import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Location
 import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Street
 import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Timezone
-import com.jeanbernad.randomuser.domain.ErrorType
+import com.jeanbernad.randomuser.core.ErrorType
+import com.jeanbernad.randomuser.domain.user.BaseUserDataToDomainMapper
 import com.jeanbernad.randomuser.domain.user.UserDomain
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
@@ -25,7 +26,6 @@ class UserRepositoryTest {
         )
         val actual = repository.user()
         val expected = UserDomain.Success(
-            "test_id",
             "Mrs Pollari Matilda",
             "Satakennankatu, 3173",
             "Female",
@@ -35,6 +35,7 @@ class UserRepositoryTest {
             "Multia",
             "(-12.0643, 53.7063)",
             "11.07.1945",
+            "https://randomuser.me/api/portraits/women/88.jpg"
         )
         assertEquals(expected, actual)
     }

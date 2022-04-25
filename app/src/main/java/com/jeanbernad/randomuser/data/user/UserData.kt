@@ -14,7 +14,8 @@ interface UserData : Abstract.DataObject {
         private val country: String,
         private val city: String,
         private val coordinates: String,
-        private val birthday: String
+        private val birthday: String,
+        private val image: String
     ) : UserData {
         override fun <T> map(mapper: UserDataToDomainMapper<T>) = mapper.map(
             fullName,
@@ -25,7 +26,8 @@ interface UserData : Abstract.DataObject {
             country,
             city,
             coordinates,
-            birthday
+            birthday,
+            image
         )
     }
 

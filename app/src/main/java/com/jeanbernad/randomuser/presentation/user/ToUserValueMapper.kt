@@ -1,9 +1,8 @@
-package com.jeanbernad.randomuser.domain.user
+package com.jeanbernad.randomuser.presentation.user
 
 import com.jeanbernad.randomuser.core.Abstract
-import com.jeanbernad.randomuser.core.ErrorType
 
-interface UserDomainToPresentationMapper<T> : Abstract.Mapper {
+interface ToUserValueMapper : Abstract.Mapper {
     fun map(
         fullName: String,
         fullAddress: String,
@@ -15,7 +14,7 @@ interface UserDomainToPresentationMapper<T> : Abstract.Mapper {
         coordinates: String,
         birthday: String,
         image: String
-    ): T
+    ) = Unit
 
-    fun map(errorType: ErrorType): T
+    fun map(errorMessage: String) = Unit
 }

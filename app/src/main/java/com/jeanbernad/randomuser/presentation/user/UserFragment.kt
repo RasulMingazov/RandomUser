@@ -1,18 +1,23 @@
 package com.jeanbernad.randomuser.presentation.user
 
+import android.content.ClipDescription
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import autoCleared
+import com.jeanbernad.randomuser.core.ImageLoader
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class UserFragment : Fragment() {
     private val viewModel: UserViewModel by viewModel()
     private var binding by autoCleared<FragmentUserBinding>()
+    private lateinit var userValue: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -23,6 +28,44 @@ class UserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.phoneBlock.setOnClickListener {
+            Intent(Intent.ACTION_DIAL).apply {
+                data = Uri.parse("tel:${binding.phoneNumber.text}")
+                startActivity(this)
+            }
+        }
+
+        binding.mailBlock.setOnClickListener {
+            Intent(Intent.ACTION_SEND).apply {
+                type = ClipDescription.MIMETYPE_TEXT_PLAIN
+                putExtra(Intent.EXTRA_EMAIL, arrayListOf("${binding.mailValue.text}"))
+                startActivity(Intent.createChooser(this, ""))
+            }
+        }
+
+        binding.coordinatesBlock.setOnClickListener {
+            Intent(Intent.ACTION_VIEW).apply {
+                val coordinates =
+                    binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
+                data = Uri.parse(
+                    String.format(
+                        Locale.ENGLISH,
+                        "geo:${coordinates[0]},${coordinates[1]}"
+                    )
+                )
+                startActivity(this)
+            }
+        }
+
+        binding.share.setOnClickListener {
+            Intent().apply {
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, userValue)
+                type = "text/plain"
+                startActivity(Intent.createChooser(this, null))
+            }
+        }
 
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.refresh()
@@ -39,9 +82,8 @@ class UserFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is UserPresentationModel.Fail -> {
-                    it.map(object : UserPresentationModel.StringMapper {
+                    it.map(object : ToUserValueMapper {
                         override fun map(errorMessage: String) {
-                            Toast.makeText(requireContext(), errorMessage,Toast.LENGTH_SHORT).show()
                             binding.progressBar.visibility = View.GONE
                             binding.error.visibility = View.VISIBLE
                             binding.error.text = errorMessage
@@ -49,7 +91,8 @@ class UserFragment : Fragment() {
                     })
                 }
                 is UserPresentationModel.Success -> {
-                    it.map(object : UserPresentationModel.StringMapper {
+                    userValue = it.textValue()
+                    it.map(object : ToUserValueMapper {
                         override fun map(
                             fullName: String,
                             fullAddress: String,
@@ -59,7 +102,8 @@ class UserFragment : Fragment() {
                             country: String,
                             city: String,
                             coordinates: String,
-                            birthday: String
+                            birthday: String,
+                            image: String
                         ) {
                             binding.name.text = fullName
                             binding.addressName.text = fullAddress
@@ -73,6 +117,7 @@ class UserFragment : Fragment() {
                             binding.coordinatesValue.text = coordinates
                             binding.progressBar.visibility = View.GONE
                             binding.container.visibility = View.VISIBLE
+                            ImageLoader.BaseGlide(image).load(binding.avatar)
                         }
                     })
                 }

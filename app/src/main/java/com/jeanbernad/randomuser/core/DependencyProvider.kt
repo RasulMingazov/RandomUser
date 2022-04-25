@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jeanbernad.randomuser.data.user.*
 import com.jeanbernad.randomuser.data.user.remote.UserService
+import com.jeanbernad.randomuser.domain.user.BaseUserDataToDomainMapper
 import com.jeanbernad.randomuser.domain.user.UserDomain
 import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
 import com.jeanbernad.randomuser.domain.user.UserInteractor

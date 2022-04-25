@@ -2,8 +2,9 @@ package com.jeanbernad.randomuser.presentation.user
 
 import com.jeanbernad.randomuser.core.Abstract
 
-sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel.StringMapper> {
-    override fun map(mapper: StringMapper) = Unit
+sealed class UserPresentationModel : Abstract.PresentationObject<Unit, ToUserValueMapper> {
+    override fun map(mapper: ToUserValueMapper) = Unit
+    override fun textValue() = String()
 
     object Progress : UserPresentationModel()
     class Success(
@@ -15,9 +16,11 @@ sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel
         private val country: String,
         private val city: String,
         private val coordinates: String,
-        private val birthday: String
+        private val birthday: String,
+        private val image: String
     ) : UserPresentationModel() {
-        override fun map(mapper: StringMapper) = mapper.map(
+        override fun textValue() = "${fullName}\n${birthday}\n${gender}\n${phone}\n${mail}\n${country}\n${city}\n${fullAddress}\n${image}"
+        override fun map(mapper: ToUserValueMapper) = mapper.map(
             fullName,
             fullAddress,
             gender,
@@ -26,36 +29,12 @@ sealed class UserPresentationModel : Abstract.Object<Unit, UserPresentationModel
             country,
             city,
             coordinates,
-            birthday
+            birthday,
+            image
         )
     }
 
     data class Fail(private val message: String) : UserPresentationModel() {
-        override fun map(mapper: StringMapper) = mapper.map(message)
+        override fun map(mapper: ToUserValueMapper) = mapper.map(message)
     }
-
-    interface StringMapper : Abstract.Mapper {
-        fun map(
-            fullName: String,
-            fullAddress: String,
-            gender: String,
-            phone: String,
-            mail: String,
-            country: String,
-            city: String,
-            coordinates: String,
-            birthday: String
-        ) {
-            /*
-            I need this function only for success state
-             */
-        }
-
-        fun map(errorMessage: String) {
-            /*
-            I need this function only for fail state
-             */
-        }
-    }
-
 }

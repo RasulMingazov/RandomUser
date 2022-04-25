@@ -1,6 +1,6 @@
 package com.jeanbernad.randomuser.domain.user
 
-import com.jeanbernad.randomuser.domain.ErrorType
+import com.jeanbernad.randomuser.core.ErrorType
 
 sealed class UserDomain {
 
@@ -15,7 +15,8 @@ sealed class UserDomain {
         private val country: String,
         private val city: String,
         private val coordinates: String,
-        private val birthday: String
+        private val birthday: String,
+        private val image: String
     ) : UserDomain() {
         override fun <T> map(mapper: UserDomainToPresentationMapper<T>): T = mapper.map(
             fullName,
@@ -26,7 +27,9 @@ sealed class UserDomain {
             country,
             city,
             coordinates,
-            birthday)
+            birthday,
+            image
+        )
     }
 
     data class Fail(private val errorType: ErrorType) : UserDomain() {

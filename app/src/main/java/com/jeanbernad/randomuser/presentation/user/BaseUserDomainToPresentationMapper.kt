@@ -1,7 +1,7 @@
 package com.jeanbernad.randomuser.presentation.user
 
 import com.jeanbernad.randomuser.core.ErrorPresentationMapper
-import com.jeanbernad.randomuser.domain.ErrorType
+import com.jeanbernad.randomuser.core.ErrorType
 import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
 
 class BaseUserDomainToPresentationMapper(
@@ -17,7 +17,8 @@ class BaseUserDomainToPresentationMapper(
         country: String,
         city: String,
         coordinates: String,
-        birthday: String
+        birthday: String,
+        image: String
     ) = UserPresentationModel.Success(
         fullName,
         fullAddress,
@@ -27,7 +28,8 @@ class BaseUserDomainToPresentationMapper(
         country,
         city,
         coordinates,
-        birthday
+        birthday,
+        image
     )
 
     override fun map(errorType: ErrorType) = UserPresentationModel.Fail(errorMapper.map(errorType))
