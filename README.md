@@ -6,10 +6,10 @@ Android - приложение, загружающее информацию из
 1. Kotlin
 1. MVVM
 1. Clean Architecture
-1. ViewModel
 1. LiveData
-1. Koin (for dependency injection)
-1. Kotlin Coroutines
-1. Retrofit
-1. Glide
-1. Navigation
+2. Room (for database)
+3. Koin (for dependency injection)
+4. Coroutines
+5. Retrofit
+6. Glide
+7. Navigation
