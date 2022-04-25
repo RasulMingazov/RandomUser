@@ -16,4 +16,7 @@ interface UserDao {
 
     @Query("SELECT * FROM users")
     fun allUsers(): List<UserLocalModel>
+
+    @Query("SELECT COUNT(*) from users")
+    fun countUsers() : Int
 }

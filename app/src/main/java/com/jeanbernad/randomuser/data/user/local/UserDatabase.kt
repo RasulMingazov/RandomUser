@@ -9,6 +9,11 @@ interface UserDatabase {
 
     abstract class AbstractRoom(context: Context, databaseName: String) : UserDatabase {
 
+        @Database(entities = [UserLocalModel::class], version = 1)
+        abstract class UsersRoom : RoomDatabase() {
+            abstract fun userDao(): UserDao
+        }
+
         private var builder: UsersRoom = androidx.room.Room.databaseBuilder(
             context,
             UsersRoom::class.java,
@@ -21,10 +26,4 @@ interface UserDatabase {
     class BaseRoom(context: Context) : AbstractRoom(context, "users")
 
     class TestRoom(context: Context) : AbstractRoom(context, "users_test")
-}
-
-
-@Database(entities = [UserLocalModel::class], version = 1)
-abstract class UsersRoom : RoomDatabase() {
-    abstract fun userDao(): UserDao
 }
