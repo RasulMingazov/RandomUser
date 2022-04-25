@@ -22,7 +22,7 @@ class BaseUserRepository<T>(
             userLocalDataSource.insert(upcomingUser.mapToLocal(toUserLocalMapper))
             upcomingUser
         } catch (exception: Exception) {
-            if (userLocalDataSource.allUsers().isEmpty()) {
+            if (userLocalDataSource.countUsers() == 0) {
                 UserData.Fail(exception)
             } else {
                 val upcomingLocalUser = userLocalDataSource.user()

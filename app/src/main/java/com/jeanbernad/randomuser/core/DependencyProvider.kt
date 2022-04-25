@@ -30,7 +30,7 @@ interface DependencyProvider {
     fun provide()
     val appModule: Module
     val remoteModule: Module
-    val cacheModule: Module
+    val localModule: Module
     val dataModule: Module
     val domainModule: Module
     val presentationModule: Module
@@ -44,7 +44,7 @@ interface DependencyProvider {
                     listOf(
                         appModule,
                         remoteModule,
-                        cacheModule,
+                        localModule,
                         dataModule,
                         domainModule,
                         presentationModule
@@ -86,7 +86,7 @@ interface DependencyProvider {
                 single<UserRemoteDataSource> { provideUserRemoteDataSource(get()) }
             }
 
-        override val cacheModule: Module
+        override val localModule: Module
             get() = module {
 
                 fun provideUserDatabase(context: Context) = UserDatabase.BaseRoom(context)
@@ -125,8 +125,8 @@ interface DependencyProvider {
                     mapper
                 )
                 single<UserRepository<UserDomain>> { provideUserRepository(get(), get(), get(), get(), get()) }
-
             }
+
         override val domainModule: Module
             get() = module {
                 fun provideUserInteractor(
@@ -135,6 +135,7 @@ interface DependencyProvider {
 
                 single<UserInteractor> { provideUserInteractor(get()) }
             }
+
         override val presentationModule: Module
             get() = module {
                 fun provideUserDomainToPresentationMapper(
