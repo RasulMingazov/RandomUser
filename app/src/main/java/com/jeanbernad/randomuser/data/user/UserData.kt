@@ -1,6 +1,7 @@
 package com.jeanbernad.randomuser.data.user
 
 import com.jeanbernad.randomuser.core.Abstract
+import com.jeanbernad.randomuser.data.user.local.ToUserLocalMapper
 
 interface UserData : Abstract.DataObject {
     fun <T> map(mapper: UserDataToDomainMapper<T>): T
@@ -16,7 +17,7 @@ interface UserData : Abstract.DataObject {
         private val coordinates: String,
         private val birthday: String,
         private val image: String
-    ) : UserData {
+    ) : UserData, ToLocalMap {
         override fun <T> map(mapper: UserDataToDomainMapper<T>) = mapper.map(
             fullName,
             fullAddress,
@@ -29,6 +30,19 @@ interface UserData : Abstract.DataObject {
             birthday,
             image
         )
+
+        override fun <P> mapToLocal(mapper: ToUserLocalMapper<P>) = mapper.mapToLocal(
+                fullName,
+                fullAddress,
+                gender,
+                phone,
+                mail,
+                country,
+                city,
+                coordinates,
+                birthday,
+                image
+        )
     }
 
     data class Fail(
@@ -36,4 +50,8 @@ interface UserData : Abstract.DataObject {
     ) : UserData {
         override fun <T> map(mapper: UserDataToDomainMapper<T>) = mapper.map(exception)
     }
+}
+
+interface ToLocalMap {
+    fun <P> mapToLocal(mapper: ToUserLocalMapper<P>): P
 }
