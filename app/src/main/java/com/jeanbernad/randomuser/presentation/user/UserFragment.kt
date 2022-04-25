@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import autoCleared
+import com.jeanbernad.randomuser.core.ImageLoader
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -59,7 +60,8 @@ class UserFragment : Fragment() {
                             country: String,
                             city: String,
                             coordinates: String,
-                            birthday: String
+                            birthday: String,
+                            image: String
                         ) {
                             binding.name.text = fullName
                             binding.addressName.text = fullAddress
@@ -73,6 +75,7 @@ class UserFragment : Fragment() {
                             binding.coordinatesValue.text = coordinates
                             binding.progressBar.visibility = View.GONE
                             binding.container.visibility = View.VISIBLE
+                            ImageLoader.BaseGlide(image).load(binding.avatar)
                         }
                     })
                 }
