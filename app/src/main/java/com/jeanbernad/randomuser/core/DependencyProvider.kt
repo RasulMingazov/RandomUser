@@ -5,6 +5,7 @@ import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.jeanbernad.randomuser.data.user.*
+import com.jeanbernad.randomuser.data.user.local.*
 import com.jeanbernad.randomuser.data.user.remote.UserService
 import com.jeanbernad.randomuser.domain.user.BaseUserDataToDomainMapper
 import com.jeanbernad.randomuser.domain.user.UserDomain
@@ -29,6 +30,7 @@ interface DependencyProvider {
     fun provide()
     val appModule: Module
     val remoteModule: Module
+    val cacheModule: Module
     val dataModule: Module
     val domainModule: Module
     val presentationModule: Module
@@ -42,6 +44,7 @@ interface DependencyProvider {
                     listOf(
                         appModule,
                         remoteModule,
+                        cacheModule,
                         dataModule,
                         domainModule,
                         presentationModule
@@ -54,37 +57,51 @@ interface DependencyProvider {
             get() = module {
                 fun provideResourceManager(context: Context): ResourceProvider =
                     ResourceProvider.Base(context)
-
                 single { provideResourceManager(get()) }
 
                 fun provideErrorPresentationMapper(resourceProvider: ResourceProvider) =
                     ErrorPresentationMapper.Base(resourceProvider)
-
                 single<ErrorPresentationMapper> { provideErrorPresentationMapper(get()) }
 
                 fun provideGson(): Gson =
                     GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create()
                 single { provideGson() }
             }
+
         override val remoteModule: Module
             get() = module {
                 fun provideRetrofit(gson: Gson): Retrofit = Retrofit.Builder()
                     .baseUrl("https://randomuser.me/")
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
-
                 single { provideRetrofit(get()) }
 
                 fun provideUserService(retrofit: Retrofit) =
                     retrofit.create(UserService::class.java)
                 factory { provideUserService(get()) }
 
-
                 fun provideUserRemoteDataSource(
                     service: UserService
                 ) = UserRemoteDataSource.Base(service)
                 single<UserRemoteDataSource> { provideUserRemoteDataSource(get()) }
             }
+
+        override val cacheModule: Module
+            get() = module {
+
+                fun provideUserDatabase(context: Context) = UserDatabase.BaseRoom(context)
+                single<UserDatabase> { provideUserDatabase(get()) }
+
+                fun provideUserDao(userDatabase: UserDatabase) = userDatabase.userDao()
+                single { provideUserDao(get()) }
+
+                fun provideToUserLocalMapper() = ToUserLocalMapper.Base()
+                factory<ToUserLocalMapper<UserLocalModel>> {provideToUserLocalMapper()}
+
+                fun provideLocalDataSource(userDao: UserDao) = UserLocalDataSource.Base(userDao)
+                factory<UserLocalDataSource> {provideLocalDataSource(get())}
+            }
+
         override val dataModule: Module
             get() = module {
                 fun provideToUserMapper() = ToUserMapper.Base()
@@ -96,14 +113,18 @@ interface DependencyProvider {
 
                 fun provideUserRepository(
                     userRemoteDataSource: UserRemoteDataSource,
+                    userLocalDataSource: UserLocalDataSource,
                     toUserMapper: ToUserMapper,
+                    toUserLocalMapper: ToUserLocalMapper<UserLocalModel>,
                     mapper: UserDataToDomainMapper<UserDomain>
                 ) = BaseUserRepository(
                     userRemoteDataSource,
+                    userLocalDataSource,
                     toUserMapper,
+                    toUserLocalMapper,
                     mapper
                 )
-                single<UserRepository<UserDomain>> { provideUserRepository(get(), get(), get()) }
+                single<UserRepository<UserDomain>> { provideUserRepository(get(), get(), get(), get(), get()) }
 
             }
         override val domainModule: Module
