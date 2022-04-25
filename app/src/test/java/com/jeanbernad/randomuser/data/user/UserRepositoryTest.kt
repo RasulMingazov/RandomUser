@@ -19,7 +19,7 @@ class UserRepositoryTest {
     @Test
     fun remote_success() = runBlocking {
         val testCloudDataSource = TestRemoteDataSource(true)
-        val repository = BaseUserRepository<UserDomain>(
+        val repository = BaseUserRepository(
             testCloudDataSource,
             ToUserMapper.Base(),
             mapper
@@ -35,6 +35,7 @@ class UserRepositoryTest {
             "Multia",
             "(-12.0643, 53.7063)",
             "11.07.1945",
+            "https://randomuser.me/api/portraits/women/88.jpg"
         )
         assertEquals(expected, actual)
     }

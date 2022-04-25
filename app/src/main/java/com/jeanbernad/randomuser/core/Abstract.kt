@@ -5,17 +5,13 @@ abstract class Abstract {
         fun map(mapper: M): T
     }
 
+    interface PresentationObject<T, M: Mapper>: Object<T, M> {
+        fun textValue() : String
+    }
+
     interface DataObject
 
     interface Mapper {
         class Empty : Mapper
-
-        interface Data<S, R> : Mapper {
-            fun map(data: S): R
-        }
-
-        interface DataToDomain<S, R> : Data<S, R> {
-            fun map(e: Exception): R
-        }
     }
 }

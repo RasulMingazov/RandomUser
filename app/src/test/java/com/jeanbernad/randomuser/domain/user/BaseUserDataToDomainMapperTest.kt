@@ -20,7 +20,8 @@ class BaseUserDataToDomainMapperTest {
             "Finland",
             "Multia",
             "(-12.0643, 53.7063)",
-            "11.07.1945"
+            "11.07.1945",
+            "https://randomuser.me/api/portraits/women/88.jpg"
         )
 
         val expected = UserDomain.Success(
@@ -32,7 +33,8 @@ class BaseUserDataToDomainMapperTest {
             "Finland",
             "Multia",
             "(-12.0643, 53.7063)",
-            "11.07.1945"
+            "11.07.1945",
+            "https://randomuser.me/api/portraits/women/88.jpg"
         )
         assertEquals(actual, expected)
     }
