@@ -26,16 +26,16 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-interface DependencyProvider {
+interface DependencyProvider<T> {
     fun provide()
-    val appModule: Module
-    val remoteModule: Module
-    val localModule: Module
-    val dataModule: Module
-    val domainModule: Module
-    val presentationModule: Module
+    val appModule: T
+    val remoteModule: T
+    val cacheModule: T
+    val dataModule: T
+    val domainModule: T
+    val presentationModule: T
 
-    class Koin(private val context: Context) : DependencyProvider {
+    class Koin(private val context: Context) : DependencyProvider<Module> {
         override fun provide() {
             startKoin {
                 androidContext(context)
@@ -44,7 +44,7 @@ interface DependencyProvider {
                     listOf(
                         appModule,
                         remoteModule,
-                        localModule,
+                        cacheModule,
                         dataModule,
                         domainModule,
                         presentationModule
@@ -86,7 +86,7 @@ interface DependencyProvider {
                 single<UserRemoteDataSource> { provideUserRemoteDataSource(get()) }
             }
 
-        override val localModule: Module
+        override val cacheModule: Module
             get() = module {
 
                 fun provideUserDatabase(context: Context) = UserDatabase.BaseRoom(context)
@@ -125,8 +125,8 @@ interface DependencyProvider {
                     mapper
                 )
                 single<UserRepository<UserDomain>> { provideUserRepository(get(), get(), get(), get(), get()) }
-            }
 
+            }
         override val domainModule: Module
             get() = module {
                 fun provideUserInteractor(
@@ -135,7 +135,6 @@ interface DependencyProvider {
 
                 single<UserInteractor> { provideUserInteractor(get()) }
             }
-
         override val presentationModule: Module
             get() = module {
                 fun provideUserDomainToPresentationMapper(
