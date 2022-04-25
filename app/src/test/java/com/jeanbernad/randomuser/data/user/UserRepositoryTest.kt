@@ -152,6 +152,8 @@ class UserRepositoryTest {
 
         override suspend fun insert(userLocalModel: UserLocalModel) {
         }
+
+        override suspend fun countUsers() = 1
     }
 
     private val userLocalListModel =
