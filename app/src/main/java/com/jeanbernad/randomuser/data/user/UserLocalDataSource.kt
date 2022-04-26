@@ -10,6 +10,8 @@ interface UserLocalDataSource {
 
     suspend fun insert(userLocalModel: UserLocalModel)
 
+    suspend fun countUsers() : Int
+
     class Base(private val userDao: UserDao) : UserLocalDataSource {
         override suspend fun user() = userDao.user()
 
@@ -17,5 +19,7 @@ interface UserLocalDataSource {
 
         override suspend fun insert(userLocalModel: UserLocalModel) =
             userDao.insert(userLocalModel)
+
+        override suspend fun countUsers() = userDao.countUsers()
     }
 }
