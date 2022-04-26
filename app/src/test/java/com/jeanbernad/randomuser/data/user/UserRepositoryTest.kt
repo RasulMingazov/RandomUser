@@ -24,7 +24,7 @@ class UserRepositoryTest {
     @Test
     fun user_remote_success_local_success() = runBlocking {
         val testCloudDataSource = TestRemoteDataSource(true)
-        val testLocalDataSource = TestLocalDataSource(true)
+        val testLocalDataSource = TestLocalDataSource(true, isEmpty = false)
         val repository = BaseUserRepository(
             testCloudDataSource,
             testLocalDataSource,
@@ -52,7 +52,7 @@ class UserRepositoryTest {
     @Test
     fun user_remote_fail_local_success() = runBlocking {
         val testCloudDataSource = TestRemoteDataSource(false)
-        val testLocalDataSource = TestLocalDataSource(true)
+        val testLocalDataSource = TestLocalDataSource(true, isEmpty = false)
         val repository = BaseUserRepository(
             testCloudDataSource,
             testLocalDataSource,
@@ -79,7 +79,7 @@ class UserRepositoryTest {
     @Test
     fun user_remote_success_local_fail() = runBlocking {
         val testCloudDataSource = TestRemoteDataSource(true)
-        val testLocalDataSource = TestLocalDataSource(false)
+        val testLocalDataSource = TestLocalDataSource(false, isEmpty = false)
         val repository = BaseUserRepository(
             testCloudDataSource,
             testLocalDataSource,
@@ -107,7 +107,7 @@ class UserRepositoryTest {
     @Test
     fun user_remote_fail_local_fail() = runBlocking {
         val testCloudDataSource = TestRemoteDataSource(false)
-        val testLocalDataSource = TestLocalDataSource(false)
+        val testLocalDataSource = TestLocalDataSource(false, isEmpty = true)
         val repository = BaseUserRepository(
             testCloudDataSource,
             testLocalDataSource,
@@ -117,6 +117,7 @@ class UserRepositoryTest {
         )
 
         val actual = repository.user()
+        print(actual.toString())
         val expected = UserDomain.Fail(ErrorType.NO_CONNECTION)
 
         assertEquals(expected, actual)
@@ -134,7 +135,8 @@ class UserRepositoryTest {
     }
 
     private inner class TestLocalDataSource(
-        private val isSuccess: Boolean
+        private val isSuccess: Boolean,
+        private val isEmpty: Boolean
     ) : UserLocalDataSource {
         override suspend fun user() =
             if (isSuccess) {
@@ -144,16 +146,17 @@ class UserRepositoryTest {
             }
 
         override suspend fun allUsers() =
-            if (isSuccess) {
+            if (isSuccess)
                 userLocalListModel
-            } else {
+            else
                 emptyList()
-            }
+
 
         override suspend fun insert(userLocalModel: UserLocalModel) {
         }
 
-        override suspend fun countUsers() = 1
+        override suspend fun countUsers() =
+            if (isEmpty) 0 else 1
     }
 
     private val userLocalListModel =
