@@ -1,11 +1,7 @@
 package com.jeanbernad.randomuser.domain.user
 
-import com.jeanbernad.randomuser.core.ErrorDomainMapper
-import com.jeanbernad.randomuser.core.ErrorType
+import com.jeanbernad.randomuser.domain.ErrorDomainMapper
 import com.jeanbernad.randomuser.data.user.UserDataToDomainMapper
-import com.jeanbernad.randomuser.presentation.user.UserPresentationModel
-import retrofit2.HttpException
-import java.net.UnknownHostException
 
 class BaseUserDataToDomainMapper(
     private val errorMapper: ErrorDomainMapper

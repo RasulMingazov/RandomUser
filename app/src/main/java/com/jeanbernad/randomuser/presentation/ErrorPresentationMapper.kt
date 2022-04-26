@@ -1,6 +1,8 @@
-package com.jeanbernad.randomuser.core
+package com.jeanbernad.randomuser.presentation
 
 import com.jeanbernad.randomuser.R
+import com.jeanbernad.randomuser.core.ErrorType
+import com.jeanbernad.randomuser.core.ResourceProvider
 
 interface ErrorPresentationMapper {
     fun map(errorType: ErrorType): String

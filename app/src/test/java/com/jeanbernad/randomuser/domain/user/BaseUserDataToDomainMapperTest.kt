@@ -1,7 +1,6 @@
 package com.jeanbernad.randomuser.domain.user
 
-import com.jeanbernad.randomuser.core.ErrorDomainMapper
-import com.jeanbernad.randomuser.core.ErrorPresentationMapper
+import com.jeanbernad.randomuser.domain.ErrorDomainMapper
 import com.jeanbernad.randomuser.core.ErrorType
 import org.junit.Assert.assertEquals
 import org.junit.Test

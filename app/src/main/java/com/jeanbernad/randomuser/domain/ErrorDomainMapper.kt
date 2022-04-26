@@ -1,5 +1,6 @@
-package com.jeanbernad.randomuser.core
+package com.jeanbernad.randomuser.domain
 
+import com.jeanbernad.randomuser.core.ErrorType
 import retrofit2.HttpException
 import java.lang.Exception
 import java.net.UnknownHostException
