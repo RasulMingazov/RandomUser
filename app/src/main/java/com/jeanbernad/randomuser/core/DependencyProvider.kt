@@ -59,10 +59,6 @@ interface DependencyProvider<T> {
                     ResourceProvider.Base(context)
                 single { provideResourceManager(get()) }
 
-                fun provideErrorPresentationMapper(resourceProvider: ResourceProvider) =
-                    ErrorPresentationMapper.Base(resourceProvider)
-                single<ErrorPresentationMapper> { provideErrorPresentationMapper(get()) }
-
                 fun provideGson(): Gson =
                     GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).create()
                 single { provideGson() }
@@ -107,9 +103,10 @@ interface DependencyProvider<T> {
                 fun provideToUserMapper() = ToUserMapper.Base()
                 factory<ToUserMapper> { provideToUserMapper() }
 
-
-                fun provideUserDataToDomainMapper() = BaseUserDataToDomainMapper()
-                factory<UserDataToDomainMapper<UserDomain>> { provideUserDataToDomainMapper() }
+                fun provideUserDataToDomainMapper(
+                    errorDomainMapper: ErrorDomainMapper
+                ) = BaseUserDataToDomainMapper(errorDomainMapper)
+                factory<UserDataToDomainMapper<UserDomain>> { provideUserDataToDomainMapper(get()) }
 
                 fun provideUserRepository(
                     userRemoteDataSource: UserRemoteDataSource,
@@ -129,6 +126,11 @@ interface DependencyProvider<T> {
             }
         override val domainModule: Module
             get() = module {
+
+                fun provideErrorDomainMapper() =
+                    ErrorDomainMapper.Base()
+                single<ErrorDomainMapper> { provideErrorDomainMapper() }
+
                 fun provideUserInteractor(
                     userRepository: UserRepository<UserDomain>
                 ) = UserInteractor.Base(userRepository)
@@ -137,6 +139,11 @@ interface DependencyProvider<T> {
             }
         override val presentationModule: Module
             get() = module {
+
+                fun provideErrorPresentationMapper(resourceProvider: ResourceProvider) =
+                    ErrorPresentationMapper.Base(resourceProvider)
+                single<ErrorPresentationMapper> { provideErrorPresentationMapper(get()) }
+
                 fun provideUserDomainToPresentationMapper(
                     errorPresentationMapper: ErrorPresentationMapper
                 ) = BaseUserDomainToPresentationMapper(errorPresentationMapper)
