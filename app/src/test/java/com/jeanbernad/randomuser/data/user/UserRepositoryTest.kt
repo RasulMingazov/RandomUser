@@ -1,5 +1,6 @@
 package com.jeanbernad.randomuser.data.user
 
+import com.jeanbernad.randomuser.core.ErrorDomainMapper
 import com.jeanbernad.randomuser.data.user.remote.UserRemoteModel
 import com.jeanbernad.randomuser.data.user.remote.entity.result.*
 import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Coordinates
@@ -19,7 +20,8 @@ import java.net.UnknownHostException
 class UserRepositoryTest {
 
     private val unknownHostException = UnknownHostException()
-    private val mapper = BaseUserDataToDomainMapper()
+    private val errorDomainMapper = ErrorDomainMapper.Base()
+    private val mapper = BaseUserDataToDomainMapper(errorDomainMapper)
 
     @Test
     fun user_remote_success_local_success() = runBlocking {

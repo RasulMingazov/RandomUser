@@ -1,5 +1,7 @@
 package com.jeanbernad.randomuser.domain.user
 
+import com.jeanbernad.randomuser.core.ErrorDomainMapper
+import com.jeanbernad.randomuser.core.ErrorPresentationMapper
 import com.jeanbernad.randomuser.core.ErrorType
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -7,7 +9,8 @@ import java.net.UnknownHostException
 
 class BaseUserDataToDomainMapperTest {
 
-    private val mapper = BaseUserDataToDomainMapper()
+    private val errorDomainMapper = ErrorDomainMapper.Base()
+    private val mapper = BaseUserDataToDomainMapper(errorDomainMapper)
 
     @Test
     fun test_success() {
