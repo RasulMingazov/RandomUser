@@ -1,11 +1,10 @@
 package com.jeanbernad.randomuser.data.user
 
 import com.jeanbernad.randomuser.data.user.local.ToUserLocalMapper
+import com.jeanbernad.randomuser.data.user.local.UserLocalDataSource
 import com.jeanbernad.randomuser.data.user.local.UserLocalModel
-
-interface UserRepository<T> {
-    suspend fun user(): T
-}
+import com.jeanbernad.randomuser.data.user.remote.UserRemoteDataSource
+import com.jeanbernad.randomuser.domain.user.UserRepository
 
 class BaseUserRepository<T>(
     private val userRemoteDataSource: UserRemoteDataSource,

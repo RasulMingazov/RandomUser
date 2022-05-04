@@ -18,8 +18,7 @@ class SplashScreenActivity : AppCompatActivity() {
         AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }, splashScreenDuration())
     }

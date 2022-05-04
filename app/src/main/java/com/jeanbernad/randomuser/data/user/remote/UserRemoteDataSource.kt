@@ -1,7 +1,4 @@
-package com.jeanbernad.randomuser.data.user
-
-import com.jeanbernad.randomuser.data.user.remote.UserRemoteModel
-import com.jeanbernad.randomuser.data.user.remote.UserService
+package com.jeanbernad.randomuser.data.user.remote
 
 interface UserRemoteDataSource {
     suspend fun user(): UserRemoteModel

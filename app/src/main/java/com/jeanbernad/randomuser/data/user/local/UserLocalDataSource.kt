@@ -1,7 +1,4 @@
-package com.jeanbernad.randomuser.data.user
-
-import com.jeanbernad.randomuser.data.user.local.UserDao
-import com.jeanbernad.randomuser.data.user.local.UserLocalModel
+package com.jeanbernad.randomuser.data.user.local
 
 interface UserLocalDataSource {
     suspend fun user(): UserLocalModel

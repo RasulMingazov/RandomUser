@@ -4,9 +4,11 @@ import com.jeanbernad.randomuser.core.Abstract
 
 sealed class UserPresentationModel : Abstract.PresentationObject<Unit, ToUserValueMapper> {
     override fun map(mapper: ToUserValueMapper) = Unit
+
     override fun textValue() = String()
 
     object Progress : UserPresentationModel()
+
     class Success(
         private val fullName: String,
         private val fullAddress: String,
@@ -19,7 +21,10 @@ sealed class UserPresentationModel : Abstract.PresentationObject<Unit, ToUserVal
         private val birthday: String,
         private val image: String
     ) : UserPresentationModel() {
-        override fun textValue() = "${fullName}\n${birthday}\n${gender}\n${phone}\n${mail}\n${country}\n${city}\n${fullAddress}\n${image}"
+
+        override fun textValue() =
+            "${fullName}\n${birthday}\n${gender}\n${phone}\n${mail}\n${country}\n${city}\n${fullAddress}\n${image}"
+
         override fun map(mapper: ToUserValueMapper) = mapper.map(
             fullName,
             fullAddress,

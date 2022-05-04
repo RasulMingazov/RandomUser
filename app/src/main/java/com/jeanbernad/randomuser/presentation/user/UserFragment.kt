@@ -1,8 +1,6 @@
 package com.jeanbernad.randomuser.presentation.user
 
-import android.content.ClipDescription
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import autoCleared
 import com.jeanbernad.randomuser.core.ImageLoader
+import com.jeanbernad.randomuser.core.navigation.MailNavigator
+import com.jeanbernad.randomuser.core.navigation.MapsNavigator
+import com.jeanbernad.randomuser.core.navigation.PhoneNavigator
+import com.jeanbernad.randomuser.core.navigation.ShareNavigator
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 
 class UserFragment : Fragment() {
     private val viewModel: UserViewModel by viewModel()
@@ -30,41 +31,25 @@ class UserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.phoneBlock.setOnClickListener {
-            Intent(Intent.ACTION_DIAL).apply {
-                data = Uri.parse("tel:${binding.phoneNumber.text}")
-                startActivity(this)
-            }
+            startActivity(PhoneNavigator.Base().intoPhone("${binding.phoneNumber.text}"))
         }
 
         binding.mailBlock.setOnClickListener {
-            Intent(Intent.ACTION_SEND).apply {
-                type = ClipDescription.MIMETYPE_TEXT_PLAIN
-                putExtra(Intent.EXTRA_EMAIL, arrayListOf("${binding.mailValue.text}"))
-                startActivity(Intent.createChooser(this, ""))
-            }
+            startActivity(MailNavigator.Base().intoMail("${binding.mailValue.text}"), null)
         }
 
         binding.coordinatesBlock.setOnClickListener {
-            Intent(Intent.ACTION_VIEW).apply {
-                val coordinates =
+            startActivity(
+                MapsNavigator.Base().intoMaps(
                     binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
-                data = Uri.parse(
-                    String.format(
-                        Locale.ENGLISH,
-                        "geo:${coordinates[0]},${coordinates[1]}"
-                    )
                 )
-                startActivity(this)
-            }
+            )
         }
 
         binding.share.setOnClickListener {
-            Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, userValue)
-                type = "text/plain"
-                startActivity(Intent.createChooser(this, null))
-            }
+            startActivity(
+                Intent.createChooser(ShareNavigator.Base().intoShare(userValue), null)
+            )
         }
 
         binding.swipeRefresh.setOnRefreshListener {
@@ -114,7 +99,6 @@ class UserFragment : Fragment() {
                             binding.mailValue.text = mail
                             binding.countyName.text = country
                             binding.cityName.text = city
-                            binding.coordinatesValue.text = coordinates
                             ImageLoader.BaseGlide(image).load(binding.avatar)
                             binding.progressBar.visibility = View.GONE
                             binding.container.visibility = View.VISIBLE

@@ -63,14 +63,12 @@ dependencies {
     testImplementation androidTestingDependencies.truth
     testImplementation androidTestingDependencies.coroutines
 
-
     //Android testing
     androidTestImplementation androidTestingDependencies.android_junit
     androidTestImplementation androidTestingDependencies.espresso
     androidTestImplementation androidTestingDependencies.android_core_testing
     androidTestImplementation androidTestingDependencies.truth
     androidTestImplementation androidTestingDependencies.coroutines
-
 
     //Coroutines
     implementation coroutinesDependencies.core
