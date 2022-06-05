@@ -32,7 +32,7 @@ class UserRepositoryTest {
         val repository = BaseUserRepository(
             testCloudDataSource,
             testLocalDataSource,
-            ToUserMapper.Base(),
+            ToUserDataMapper.Base(),
             ToUserLocalMapper.Base(),
             mapper
         )
@@ -60,7 +60,7 @@ class UserRepositoryTest {
         val repository = BaseUserRepository(
             testCloudDataSource,
             testLocalDataSource,
-            ToUserMapper.Base(),
+            ToUserDataMapper.Base(),
             ToUserLocalMapper.Base(),
             mapper
         )
@@ -87,7 +87,7 @@ class UserRepositoryTest {
         val repository = BaseUserRepository(
             testCloudDataSource,
             testLocalDataSource,
-            ToUserMapper.Base(),
+            ToUserDataMapper.Base(),
             ToUserLocalMapper.Base(),
             mapper
         )
@@ -115,7 +115,7 @@ class UserRepositoryTest {
         val repository = BaseUserRepository(
             testCloudDataSource,
             testLocalDataSource,
-            ToUserMapper.Base(),
+            ToUserDataMapper.Base(),
             ToUserLocalMapper.Base(),
             mapper
         )

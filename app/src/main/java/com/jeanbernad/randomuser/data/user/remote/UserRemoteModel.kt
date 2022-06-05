@@ -1,7 +1,7 @@
 package com.jeanbernad.randomuser.data.user.remote
 
 import com.jeanbernad.randomuser.core.Abstract
-import com.jeanbernad.randomuser.data.user.ToUserMapper
+import com.jeanbernad.randomuser.data.user.ToUserDataMapper
 import com.jeanbernad.randomuser.data.user.UserData
 import com.jeanbernad.randomuser.data.user.remote.entity.result.*
 import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Location
@@ -19,7 +19,7 @@ data class UserRemoteModel(
     val phone: String,
     val picture: Picture,
     val registered: Registered
-) : Abstract.Object<UserData, ToUserMapper> {
-    override fun map(mapper: ToUserMapper) =
+) : Abstract.Object<UserData, ToUserDataMapper> {
+    override fun map(mapper: ToUserDataMapper) =
         mapper.map(this)
 }

@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-interface ToUserMapper : Abstract.Mapper {
+interface ToUserDataMapper : Abstract.Mapper {
     fun map(
         userRemoteModel: UserRemoteModel
     ): UserData.Success
@@ -27,7 +27,7 @@ interface ToUserMapper : Abstract.Mapper {
 
     fun map(exception: Exception): UserData.Fail
 
-    class Base : ToUserMapper {
+    class Base : ToUserDataMapper {
         override fun map(userRemoteModel: UserRemoteModel) =
             UserData.Success(
                 fullName = "${userRemoteModel.name.title} ${userRemoteModel.name.first} ${userRemoteModel.name.last}",
