@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.presentation
+package com.jeanbernad.randomuser.presentation.common
 
 import com.jeanbernad.randomuser.R
 import com.jeanbernad.randomuser.core.ErrorType

@@ -1,6 +1,6 @@
 package com.jeanbernad.randomuser.data.user
 
-import com.jeanbernad.randomuser.domain.ErrorDomainMapper
+import com.jeanbernad.randomuser.domain.common.ErrorDomainMapper
 import com.jeanbernad.randomuser.data.user.remote.UserRemoteModel
 import com.jeanbernad.randomuser.data.user.remote.entity.result.*
 import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Coordinates
@@ -9,7 +9,9 @@ import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Street
 import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Timezone
 import com.jeanbernad.randomuser.core.ErrorType
 import com.jeanbernad.randomuser.data.user.local.ToUserLocalMapper
+import com.jeanbernad.randomuser.data.user.local.UserLocalDataSource
 import com.jeanbernad.randomuser.data.user.local.UserLocalModel
+import com.jeanbernad.randomuser.data.user.remote.UserRemoteDataSource
 import com.jeanbernad.randomuser.domain.user.BaseUserDataToDomainMapper
 import com.jeanbernad.randomuser.domain.user.UserDomain
 import org.junit.Assert.assertEquals

@@ -1,7 +1,7 @@
 package com.jeanbernad.randomuser.presentation.user
 
 import com.jeanbernad.randomuser.R
-import com.jeanbernad.randomuser.presentation.ErrorPresentationMapper
+import com.jeanbernad.randomuser.presentation.common.ErrorPresentationMapper
 import com.jeanbernad.randomuser.core.ResourceProvider
 import com.jeanbernad.randomuser.core.ErrorType
 import org.junit.Test

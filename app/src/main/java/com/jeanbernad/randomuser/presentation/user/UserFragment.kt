@@ -1,23 +1,40 @@
 package com.jeanbernad.randomuser.presentation.user
 
-import android.content.ClipDescription
+import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import autoCleared
-import com.jeanbernad.randomuser.core.ImageLoader
+import androidx.lifecycle.ViewModelProvider
+import com.jeanbernad.randomuser.presentation.common.ImageLoader
+import com.jeanbernad.randomuser.core.autoCleared
+import com.jeanbernad.randomuser.presentation.common.navigation.MailNavigator
+import com.jeanbernad.randomuser.presentation.common.navigation.MapsNavigator
+import com.jeanbernad.randomuser.presentation.common.navigation.PhoneNavigator
+import com.jeanbernad.randomuser.presentation.common.navigation.ShareNavigator
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
+import com.jeanbernad.randomuser.di.app.AppDependenciesProvider
+import com.jeanbernad.randomuser.di.vm.ViewModelFactory
+import com.jeanbernad.randomuser.di.user.DaggerUserComponent
+import javax.inject.Inject
 
 class UserFragment : Fragment() {
-    private val viewModel: UserViewModel by viewModel()
     private var binding by autoCleared<FragmentUserBinding>()
     private lateinit var userValue: String
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerUserComponent.builder().dependencies(AppDependenciesProvider.dependencies)
+            .build().inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -30,41 +47,25 @@ class UserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.phoneBlock.setOnClickListener {
-            Intent(Intent.ACTION_DIAL).apply {
-                data = Uri.parse("tel:${binding.phoneNumber.text}")
-                startActivity(this)
-            }
+            startActivity(PhoneNavigator.Base().intoPhone("${binding.phoneNumber.text}"))
         }
 
         binding.mailBlock.setOnClickListener {
-            Intent(Intent.ACTION_SEND).apply {
-                type = ClipDescription.MIMETYPE_TEXT_PLAIN
-                putExtra(Intent.EXTRA_EMAIL, arrayListOf("${binding.mailValue.text}"))
-                startActivity(Intent.createChooser(this, ""))
-            }
+            startActivity(MailNavigator.Base().intoMail("${binding.mailValue.text}"), null)
         }
 
         binding.coordinatesBlock.setOnClickListener {
-            Intent(Intent.ACTION_VIEW).apply {
-                val coordinates =
+            startActivity(
+                MapsNavigator.Base().intoMaps(
                     binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
-                data = Uri.parse(
-                    String.format(
-                        Locale.ENGLISH,
-                        "geo:${coordinates[0]},${coordinates[1]}"
-                    )
                 )
-                startActivity(this)
-            }
+            )
         }
 
         binding.share.setOnClickListener {
-            Intent().apply {
-                action = Intent.ACTION_SEND
-                putExtra(Intent.EXTRA_TEXT, userValue)
-                type = "text/plain"
-                startActivity(Intent.createChooser(this, null))
-            }
+            startActivity(
+                Intent.createChooser(ShareNavigator.Base().intoShare(userValue), null)
+            )
         }
 
         binding.swipeRefresh.setOnRefreshListener {
@@ -114,7 +115,6 @@ class UserFragment : Fragment() {
                             binding.mailValue.text = mail
                             binding.countyName.text = country
                             binding.cityName.text = city
-                            binding.coordinatesValue.text = coordinates
                             ImageLoader.BaseGlide(image).load(binding.avatar)
                             binding.progressBar.visibility = View.GONE
                             binding.container.visibility = View.VISIBLE

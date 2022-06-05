@@ -11,7 +11,7 @@ interface ToUserLocalMapper<T>: Abstract.Mapper {
         mail: String,
         country: String,
         city: String,
-        oordinates: String,
+        coordinates: String,
         birthday: String,
         image: String
     ): T
@@ -25,7 +25,7 @@ interface ToUserLocalMapper<T>: Abstract.Mapper {
             mail: String,
             country: String,
             city: String,
-            oordinates: String,
+            coordinates: String,
             birthday: String,
             image: String
         ) = UserLocalModel(
@@ -36,7 +36,7 @@ interface ToUserLocalMapper<T>: Abstract.Mapper {
             mail,
             country,
             city,
-            oordinates,
+            coordinates,
             birthday,
             image
         )

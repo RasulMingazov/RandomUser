@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.core
+package com.jeanbernad.randomuser.presentation.common
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide

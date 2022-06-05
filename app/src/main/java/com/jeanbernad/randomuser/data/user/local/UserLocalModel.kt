@@ -12,14 +12,14 @@ data class UserLocalModel(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val fullName: String = "",
-    val birthday: String = "",
+    val fullAddress: String = "",
     val gender: String = "",
     val phone: String = "",
     val mail: String = "",
     val country: String = "",
     val city: String = "",
-    val fullAddress: String = "",
     val coordinates: String = "",
+    val birthday: String = "",
     val image: String
 ) : Abstract.Object<UserData, ToUserMapper> {
 
@@ -29,26 +29,26 @@ data class UserLocalModel(
     @Ignore
     constructor(
         fullName: String,
-        birthday: String,
+        fullAddress: String,
         gender: String,
         phone: String,
         mail: String,
         country: String,
         city: String,
-        fullAddress: String,
         coordinates: String,
+        birthday: String,
         image: String
     ) : this(
         0,
         fullName,
-        birthday,
+        fullAddress,
         gender,
         phone,
         mail,
         country,
         city,
-        fullAddress,
         coordinates,
+        birthday,
         image
     )
 }
