@@ -13,5 +13,9 @@ abstract class Abstract {
 
     interface Mapper {
         class Empty : Mapper
+
+        interface Data<S, R> : Mapper {
+            fun map(data: S): R
+        }
     }
 }
