@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.domain
+package com.jeanbernad.randomuser.domain.common
 
 import com.jeanbernad.randomuser.core.ErrorType
 import retrofit2.HttpException

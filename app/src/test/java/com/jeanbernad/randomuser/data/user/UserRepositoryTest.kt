@@ -1,6 +1,6 @@
 package com.jeanbernad.randomuser.data.user
 
-import com.jeanbernad.randomuser.domain.ErrorDomainMapper
+import com.jeanbernad.randomuser.domain.common.ErrorDomainMapper
 import com.jeanbernad.randomuser.data.user.remote.UserRemoteModel
 import com.jeanbernad.randomuser.data.user.remote.entity.result.*
 import com.jeanbernad.randomuser.data.user.remote.entity.result.location.Coordinates
