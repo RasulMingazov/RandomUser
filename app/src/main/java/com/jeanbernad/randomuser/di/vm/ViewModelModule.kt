@@ -1,7 +1,6 @@
-package com.jeanbernad.randomuser.di.app
+package com.jeanbernad.randomuser.di.vm
 
 import androidx.lifecycle.ViewModelProvider
-import com.jeanbernad.randomuser.di.vm.ViewModelFactory
 import dagger.Binds
 import dagger.Module
 

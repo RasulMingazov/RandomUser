@@ -4,6 +4,4 @@ import com.jeanbernad.randomuser.di.user.database.UserDatabaseModule
 import dagger.Module
 
 @Module(includes = [UserDatabaseModule::class])
-class DatabaseModule {
-
-}
+class DatabaseModule
