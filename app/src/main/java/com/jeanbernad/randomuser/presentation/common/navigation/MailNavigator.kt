@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.core.navigation
+package com.jeanbernad.randomuser.presentation.common.navigation
 
 import android.content.ClipDescription
 import android.content.Intent

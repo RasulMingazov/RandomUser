@@ -1,3 +1,5 @@
+package com.jeanbernad.randomuser.core
+
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner

@@ -1,24 +1,40 @@
 package com.jeanbernad.randomuser.presentation.user
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import autoCleared
-import com.jeanbernad.randomuser.core.ImageLoader
-import com.jeanbernad.randomuser.core.navigation.MailNavigator
-import com.jeanbernad.randomuser.core.navigation.MapsNavigator
-import com.jeanbernad.randomuser.core.navigation.PhoneNavigator
-import com.jeanbernad.randomuser.core.navigation.ShareNavigator
+import androidx.lifecycle.ViewModelProvider
+import com.jeanbernad.randomuser.presentation.common.ImageLoader
+import com.jeanbernad.randomuser.core.autoCleared
+import com.jeanbernad.randomuser.presentation.common.navigation.MailNavigator
+import com.jeanbernad.randomuser.presentation.common.navigation.MapsNavigator
+import com.jeanbernad.randomuser.presentation.common.navigation.PhoneNavigator
+import com.jeanbernad.randomuser.presentation.common.navigation.ShareNavigator
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import com.jeanbernad.randomuser.di.app_d.AppDepsProvider
+import com.jeanbernad.randomuser.di.app_d.ViewModelFactory
+import com.jeanbernad.randomuser.di.user_d.DaggerUserComponent
+import javax.inject.Inject
 
 class UserFragment : Fragment() {
-    private val viewModel: UserViewModel by viewModel()
     private var binding by autoCleared<FragmentUserBinding>()
     private lateinit var userValue: String
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+    private val viewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerUserComponent.builder().deps(AppDepsProvider.deps)
+            .build().inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

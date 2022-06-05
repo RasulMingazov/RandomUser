@@ -4,8 +4,9 @@ import androidx.lifecycle.*
 import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
 import com.jeanbernad.randomuser.domain.user.UserInteractor
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class UserViewModel(
+class UserViewModel @Inject constructor(
     private val interactor: UserInteractor,
     private val presentationMapper: UserDomainToPresentationMapper<UserPresentationModel>,
 ) : ViewModel() {
