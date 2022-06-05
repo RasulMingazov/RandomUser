@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jeanbernad.randomuser.presentation.common.ImageLoader
@@ -18,6 +19,8 @@ import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import com.jeanbernad.randomuser.di.app.AppDependenciesProvider
 import com.jeanbernad.randomuser.di.vm.ViewModelFactory
 import com.jeanbernad.randomuser.di.user.DaggerUserComponent
+import com.jeanbernad.randomuser.presentation.user.all.ToUsersValueMapper
+import com.jeanbernad.randomuser.presentation.user.all.UsersPresentationModel
 import javax.inject.Inject
 
 class UserFragment : Fragment() {
@@ -71,6 +74,22 @@ class UserFragment : Fragment() {
         binding.swipeRefresh.setOnRefreshListener {
             viewModel.refresh()
             binding.swipeRefresh.isRefreshing = false
+        }
+
+        viewModel.users.observe(
+            viewLifecycleOwner
+        ) {
+            when (it) {
+                is UsersPresentationModel.Empty -> Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show()
+                is UsersPresentationModel.Base -> {
+                    it.map(object: ToUsersValueMapper {
+                        override fun map(users: List<UserPresentationModel>) {
+                            super.map(users)
+                            Toast.makeText(requireContext(),"AAA" + users.size, Toast.LENGTH_SHORT).show()
+                        }
+                    })
+                }
+            }
         }
 
         viewModel.user.observe(
