@@ -1,7 +1,8 @@
-package com.jeanbernad.randomuser.di.app_d
+package com.jeanbernad.randomuser.di.app
 
 import com.google.gson.Gson
 import com.jeanbernad.randomuser.data.user.remote.UserService
+import com.jeanbernad.randomuser.di.user.network.UserNetworkModule
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -10,9 +11,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [UserNetworkModule::class])
 class NetworkModule {
-
 
     @Provides
     @Singleton
@@ -33,11 +33,5 @@ class NetworkModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-    }
-
-    @Provides
-    @Singleton
-    fun provideUserService(retrofit: Retrofit): UserService {
-        return retrofit.create(UserService::class.java)
     }
 }

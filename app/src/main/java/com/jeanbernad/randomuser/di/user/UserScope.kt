@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.di.user_d
+package com.jeanbernad.randomuser.di.user
 
 import javax.inject.Scope
 

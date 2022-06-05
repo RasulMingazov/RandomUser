@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.di
+package com.jeanbernad.randomuser.di.vm
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.di.user_d
+package com.jeanbernad.randomuser.di.user
 
 
 import com.jeanbernad.randomuser.data.user.BaseUserRepository
@@ -7,12 +7,12 @@ import com.jeanbernad.randomuser.data.user.UserDataToDomainMapper
 import com.jeanbernad.randomuser.data.user.local.*
 import com.jeanbernad.randomuser.data.user.remote.UserRemoteDataSource
 import com.jeanbernad.randomuser.data.user.remote.UserService
-import com.jeanbernad.randomuser.domain.ErrorDomainMapper
+import com.jeanbernad.randomuser.domain.common.ErrorDomainMapper
 import com.jeanbernad.randomuser.domain.user.BaseUserDataToDomainMapper
 import com.jeanbernad.randomuser.domain.user.UserDomain
 import com.jeanbernad.randomuser.domain.user.UserInteractor
 import com.jeanbernad.randomuser.domain.user.UserRepository
-import com.jeanbernad.randomuser.presentation.ErrorPresentationMapper
+import com.jeanbernad.randomuser.presentation.common.ErrorPresentationMapper
 import com.jeanbernad.randomuser.presentation.user.BaseUserDomainToPresentationMapper
 import dagger.Module
 import dagger.Provides
@@ -57,7 +57,4 @@ class UserProvideModule {
     @Provides
     fun provideUserDomainToUiMapper(errorPresentationMapper: ErrorPresentationMapper) =
         BaseUserDomainToPresentationMapper(errorPresentationMapper)
-
-    @Provides
-    fun provideErrorDomainMapper()= ErrorDomainMapper.Base()
 }

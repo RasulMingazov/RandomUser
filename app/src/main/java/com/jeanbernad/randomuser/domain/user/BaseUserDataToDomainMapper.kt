@@ -1,6 +1,6 @@
 package com.jeanbernad.randomuser.domain.user
 
-import com.jeanbernad.randomuser.domain.ErrorDomainMapper
+import com.jeanbernad.randomuser.domain.common.ErrorDomainMapper
 import com.jeanbernad.randomuser.data.user.UserDataToDomainMapper
 
 class BaseUserDataToDomainMapper(

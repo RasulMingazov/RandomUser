@@ -15,9 +15,9 @@ import com.jeanbernad.randomuser.presentation.common.navigation.MapsNavigator
 import com.jeanbernad.randomuser.presentation.common.navigation.PhoneNavigator
 import com.jeanbernad.randomuser.presentation.common.navigation.ShareNavigator
 import com.jeanbernad.randomuser.databinding.FragmentUserBinding
-import com.jeanbernad.randomuser.di.app_d.AppDepsProvider
-import com.jeanbernad.randomuser.di.app_d.ViewModelFactory
-import com.jeanbernad.randomuser.di.user_d.DaggerUserComponent
+import com.jeanbernad.randomuser.di.app.AppDependenciesProvider
+import com.jeanbernad.randomuser.di.vm.ViewModelFactory
+import com.jeanbernad.randomuser.di.user.DaggerUserComponent
 import javax.inject.Inject
 
 class UserFragment : Fragment() {
@@ -32,7 +32,7 @@ class UserFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerUserComponent.builder().deps(AppDepsProvider.deps)
+        DaggerUserComponent.builder().dependencies(AppDependenciesProvider.dependencies)
             .build().inject(this)
     }
 

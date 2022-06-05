@@ -1,7 +1,7 @@
-package com.jeanbernad.randomuser.di.user_d
+package com.jeanbernad.randomuser.di.user
 
 import androidx.lifecycle.ViewModel
-import com.jeanbernad.randomuser.di.ViewModelKey
+import com.jeanbernad.randomuser.di.vm.ViewModelKey
 import com.jeanbernad.randomuser.presentation.user.UserViewModel
 import dagger.Binds
 import dagger.Module
