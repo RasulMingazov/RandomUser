@@ -10,5 +10,5 @@ interface UsersDataToDomainMapper<M> : Abstract.Mapper {
 
     fun map(exception: Exception): M
 
-    fun map() : M
+    fun map(): M
 }

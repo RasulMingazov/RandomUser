@@ -13,7 +13,8 @@ interface UserDataToDomainMapper<T> : Abstract.Mapper {
         city: String,
         coordinates: String,
         birthday: String,
-        image: String
+        image: String,
+        thumbnail: String
     ): T
 
     fun map(exception: Exception): T

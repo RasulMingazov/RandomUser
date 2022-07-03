@@ -13,7 +13,8 @@ interface ToUserValueMapper : Abstract.Mapper {
         city: String,
         coordinates: String,
         birthday: String,
-        image: String
+        image: String,
+        thumbnail: String
     ) = Unit
 
     fun map(errorMessage: String) = Unit

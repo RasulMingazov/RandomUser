@@ -20,12 +20,24 @@ data class UserLocalModel(
     val city: String = "",
     val coordinates: String = "",
     val birthday: String = "",
-    val image: String
+    val image: String,
+    val thumbnail: String
 ) : Abstract.Object<UserData, ToUserDataMapper> {
 
     override fun map(mapper: ToUserDataMapper) = mapper.map(
-        fullName, fullAddress, gender, phone, mail, country, city, coordinates, birthday, image
+        fullName,
+        fullAddress,
+        gender,
+        phone,
+        mail,
+        country,
+        city,
+        coordinates,
+        birthday,
+        image,
+        thumbnail
     )
+
     @Ignore
     constructor(
         fullName: String,
@@ -37,7 +49,8 @@ data class UserLocalModel(
         city: String,
         coordinates: String,
         birthday: String,
-        image: String
+        image: String,
+        thumbnail: String
     ) : this(
         0,
         fullName,
@@ -49,6 +62,7 @@ data class UserLocalModel(
         city,
         coordinates,
         birthday,
-        image
+        image,
+        thumbnail
     )
 }

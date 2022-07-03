@@ -16,7 +16,8 @@ sealed class UserDomain {
         private val city: String,
         private val coordinates: String,
         private val birthday: String,
-        private val image: String
+        private val image: String,
+        private val thumbnail: String
     ) : UserDomain() {
         override fun <T> map(mapper: UserDomainToPresentationMapper<T>): T = mapper.map(
             fullName,
@@ -28,7 +29,8 @@ sealed class UserDomain {
             city,
             coordinates,
             birthday,
-            image
+            image,
+            thumbnail
         )
     }
 

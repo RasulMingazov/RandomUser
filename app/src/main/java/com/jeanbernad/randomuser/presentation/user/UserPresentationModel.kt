@@ -19,7 +19,8 @@ sealed class UserPresentationModel : Abstract.PresentationObject<Unit, ToUserVal
         private val city: String,
         private val coordinates: String,
         private val birthday: String,
-        private val image: String
+        private val image: String,
+        private val thumbnail: String
     ) : UserPresentationModel() {
 
         override fun textValue() =
@@ -35,7 +36,8 @@ sealed class UserPresentationModel : Abstract.PresentationObject<Unit, ToUserVal
             city,
             coordinates,
             birthday,
-            image
+            image,
+            thumbnail
         )
     }
 

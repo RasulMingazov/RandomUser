@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.jeanbernad.randomuser.R
 import com.jeanbernad.randomuser.presentation.common.ImageLoader
 import com.jeanbernad.randomuser.core.autoCleared
 import com.jeanbernad.randomuser.presentation.common.navigation.MailNavigator
@@ -49,31 +50,31 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.phoneBlock.setOnClickListener {
-            startActivity(PhoneNavigator.Base().intoPhone("${binding.phoneNumber.text}"))
+        binding.blockContact.dataPhone.setOnClickListener {
+            startActivity(PhoneNavigator.Base().intoPhone("${binding.blockContact.phoneValue.text}"))
         }
 
-        binding.mailBlock.setOnClickListener {
-            startActivity(MailNavigator.Base().intoMail("${binding.mailValue.text}"), null)
+        binding.blockContact.dataMail.setOnClickListener {
+            startActivity(MailNavigator.Base().intoMail("${binding.blockContact.mailValue.text}"), null)
         }
 
-        binding.coordinatesBlock.setOnClickListener {
+        binding.blockLocation.dataCoordinates.setOnClickListener {
             startActivity(
                 MapsNavigator.Base().intoMaps(
-                    binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
+                    binding.blockLocation.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
                 )
             )
         }
 
-        binding.share.setOnClickListener {
+        binding.toolbar.share.setOnClickListener {
             startActivity(
                 Intent.createChooser(ShareNavigator.Base().intoShare(userValue), null)
             )
         }
 
-        binding.swipeRefresh.setOnRefreshListener {
+        binding.refresh.setOnRefreshListener {
             viewModel.refresh()
-            binding.swipeRefresh.isRefreshing = false
+            binding.refresh.isRefreshing = false
         }
 
         viewModel.users.observe(
@@ -89,6 +90,7 @@ class UserFragment : Fragment() {
                         }
                     })
                 }
+                else -> {}
             }
         }
 
@@ -98,7 +100,7 @@ class UserFragment : Fragment() {
             when (it) {
                 is UserPresentationModel.Progress -> {
                     binding.error.visibility = View.GONE
-                    binding.container.visibility = View.GONE
+                    binding.informationContainer.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is UserPresentationModel.Fail -> {
@@ -123,20 +125,26 @@ class UserFragment : Fragment() {
                             city: String,
                             coordinates: String,
                             birthday: String,
-                            image: String
+                            image: String,
+                            thumbnail: String
                         ) {
-                            binding.name.text = fullName
-                            binding.addressName.text = fullAddress
-                            binding.coordinatesValue.text = coordinates
-                            binding.genderValue.text = gender
-                            binding.birthdayDate.text = birthday
-                            binding.phoneNumber.text = phone
-                            binding.mailValue.text = mail
-                            binding.countyName.text = country
-                            binding.cityName.text = city
-                            ImageLoader.BaseGlide(image).load(binding.avatar)
+                            binding.blockMainInformation.name.text = fullName
+                            binding.blockLocation.addressValue.text = fullAddress
+                            binding.blockLocation.coordinatesValue.text = coordinates
+                            binding.blockBirthdayGender.genderValue.text = gender
+                            binding.blockBirthdayGender.birthdayValue.text = birthday
+                            binding.blockContact.phoneValue.text = phone
+                            binding.blockContact.mailValue.text = mail
+                            binding.blockLocation.countryValue.text = country
+                            binding.blockLocation.cityValue.text = city
+                            ImageLoader.BaseCircleGlide(image, thumbnail, Pair(
+                                binding.blockMainInformation.avatar.width,
+                                binding.blockMainInformation.avatar.height
+                            ),
+                                R.drawable.ic_person
+                            ).load(binding.blockMainInformation.avatar)
                             binding.progressBar.visibility = View.GONE
-                            binding.container.visibility = View.VISIBLE
+                            binding.informationContainer.visibility = View.VISIBLE
                         }
                     })
                 }

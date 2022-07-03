@@ -13,7 +13,8 @@ interface ToUserLocalMapper<T>: Abstract.Mapper {
         city: String,
         coordinates: String,
         birthday: String,
-        image: String
+        image: String,
+        thumbnail: String
     ): T
 
     class Base: ToUserLocalMapper<UserLocalModel> {
@@ -27,7 +28,8 @@ interface ToUserLocalMapper<T>: Abstract.Mapper {
             city: String,
             coordinates: String,
             birthday: String,
-            image: String
+            image: String,
+            thumbnail: String
         ) = UserLocalModel(
             fullName,
             fullAddress,
@@ -38,7 +40,8 @@ interface ToUserLocalMapper<T>: Abstract.Mapper {
             city,
             coordinates,
             birthday,
-            image
+            image,
+            thumbnail
         )
     }
 }

@@ -22,7 +22,8 @@ interface ToUserDataMapper : Abstract.Mapper {
         city: String,
         coordinates: String,
         birthday: String,
-        image: String
+        image: String,
+        thumbnail: String
     ): UserData.Success
 
     fun map(exception: Exception): UserData.Fail
@@ -52,7 +53,8 @@ interface ToUserDataMapper : Abstract.Mapper {
                             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS")
                         )
                     ),
-                image = userRemoteModel.picture.large
+                image = userRemoteModel.picture.large,
+                thumbnail = userRemoteModel.picture.thumbnail
             )
 
         override fun map(
@@ -65,9 +67,10 @@ interface ToUserDataMapper : Abstract.Mapper {
             city: String,
             coordinates: String,
             birthday: String,
-            image: String
+            image: String,
+            thumbnail: String
         ) = UserData.Success(
-            fullName, fullAddress, gender, phone, mail, country, city, coordinates, birthday, image
+            fullName, fullAddress, gender, phone, mail, country, city, coordinates, birthday, image, thumbnail
         )
 
         override fun map(exception: Exception) = UserData.Fail(exception)
