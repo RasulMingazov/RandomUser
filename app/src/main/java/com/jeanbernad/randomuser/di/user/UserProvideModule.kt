@@ -13,6 +13,7 @@ import com.jeanbernad.randomuser.domain.common.ErrorDomainMapper
 import com.jeanbernad.randomuser.domain.user.*
 import com.jeanbernad.randomuser.domain.user.all.BaseUsersDataToDomainMapper
 import com.jeanbernad.randomuser.domain.user.all.UsersDomain
+import com.jeanbernad.randomuser.presentation.common.DateTimeFormat
 import com.jeanbernad.randomuser.presentation.common.ErrorPresentationMapper
 import com.jeanbernad.randomuser.presentation.user.BaseUserDomainToPresentationMapper
 import com.jeanbernad.randomuser.presentation.user.UserPresentationModel
@@ -78,8 +79,10 @@ class UserProvideModule {
     fun provideToUserDataMapper() = ToUserDataMapper.Base()
 
     @Provides
-    fun provideUserDomainToPresentationMapper(errorPresentationMapper: ErrorPresentationMapper) =
-        BaseUserDomainToPresentationMapper(errorPresentationMapper)
+    fun provideUserDomainToPresentationMapper(
+        errorPresentationMapper: ErrorPresentationMapper,
+        dateTimeFormat: DateTimeFormat
+    ) = BaseUserDomainToPresentationMapper(errorPresentationMapper, dateTimeFormat)
 
     @Provides
     fun provideUsersDomainToPresentationMapper(
