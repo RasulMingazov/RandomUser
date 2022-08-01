@@ -10,7 +10,7 @@ import com.jeanbernad.randomuser.data.user.UserData
 @Entity(tableName = "users")
 data class UserLocalModel(
     @PrimaryKey(autoGenerate = true)
-    val id: Long = 0,
+    val id: Long = -1,
     val fullName: String = "",
     val fullAddress: String = "",
     val gender: String = "",
@@ -24,19 +24,7 @@ data class UserLocalModel(
     val thumbnail: String
 ) : Abstract.Object<UserData, ToUserDataMapper> {
 
-    override fun map(mapper: ToUserDataMapper) = mapper.map(
-        fullName,
-        fullAddress,
-        gender,
-        phone,
-        mail,
-        country,
-        city,
-        coordinates,
-        birthday,
-        image,
-        thumbnail
-    )
+    override fun map(mapper: ToUserDataMapper) = mapper.map(this)
 
     @Ignore
     constructor(

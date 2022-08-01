@@ -25,19 +25,19 @@ class BaseUserRepository<T, M>(
         userLocalDataSource.insert(upcomingUser.mapToLocal(toUserLocalMapper))
         upcomingUser
     } catch (exception: Exception) {
-        if (userLocalDataSource.countUsers() == 0) {
+        val user = userLocalDataSource.user()
+        if (user.id == -1L) {
             UserData.Fail(exception)
         } else {
-            val upcomingLocalUser = userLocalDataSource.user()
-            val upcomingUser = upcomingLocalUser.map(toUserDataMapper)
+            val upcomingUser = user.map(toUserDataMapper)
             upcomingUser
         }
     }).map(userDataToDomainMapper)
 
     override suspend fun users(): M = (try {
         if (userLocalDataSource.countUsers() != 0) {
-            val pokemonEntityList = userLocalDataSource.users()
-            UsersData.Success(usersLocalMapper.map(pokemonEntityList))
+            val userLocalList = userLocalDataSource.users()
+            UsersData.Success(usersLocalMapper.map(userLocalList))
         } else {
             UsersData.Empty
         }
