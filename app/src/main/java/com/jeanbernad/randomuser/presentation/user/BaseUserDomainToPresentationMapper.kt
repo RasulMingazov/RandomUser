@@ -3,9 +3,11 @@ package com.jeanbernad.randomuser.presentation.user
 import com.jeanbernad.randomuser.presentation.common.ErrorPresentationMapper
 import com.jeanbernad.randomuser.core.ErrorType
 import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
+import com.jeanbernad.randomuser.presentation.common.DateTimeFormat
 
 class BaseUserDomainToPresentationMapper(
-    private val errorMapper: ErrorPresentationMapper
+    private val errorMapper: ErrorPresentationMapper,
+    private val dateTimeFormat: DateTimeFormat
 ) : UserDomainToPresentationMapper<UserPresentationModel> {
 
     override fun map(
@@ -29,7 +31,7 @@ class BaseUserDomainToPresentationMapper(
         country,
         city,
         coordinates,
-        birthday,
+        dateTimeFormat.userDateToPresentation(birthday),
         image,
         thumbnail
     )
