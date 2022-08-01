@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.jeanbernad.randomuser.R
-import com.jeanbernad.randomuser.presentation.common.ImageLoader
+import com.jeanbernad.randomuser.presentation.common.LoaderImage
 import com.jeanbernad.randomuser.core.autoCleared
 import com.jeanbernad.randomuser.presentation.common.navigation.MailNavigator
 import com.jeanbernad.randomuser.presentation.common.navigation.MapsNavigator
@@ -21,7 +21,6 @@ import com.jeanbernad.randomuser.di.app.AppDependenciesProvider
 import com.jeanbernad.randomuser.di.vm.ViewModelFactory
 import com.jeanbernad.randomuser.di.user.DaggerUserComponent
 import com.jeanbernad.randomuser.presentation.user.all.ToUsersValueMapper
-import com.jeanbernad.randomuser.presentation.user.all.UsersPresentationModel
 import javax.inject.Inject
 
 class UserFragment : Fragment() {
@@ -78,22 +77,15 @@ class UserFragment : Fragment() {
         }
 
         viewModel.users.observe(
-            viewLifecycleOwner
+            viewLifecycleOwner,
         ) {
-            when (it) {
-                is UsersPresentationModel.Empty -> Toast.makeText(requireContext(), "Empty", Toast.LENGTH_SHORT).show()
-                is UsersPresentationModel.Base -> {
-                    it.map(object: ToUsersValueMapper {
-                        override fun map(users: List<UserPresentationModel>) {
-                            super.map(users)
-                            Toast.makeText(requireContext(),"AAA" + users.size, Toast.LENGTH_SHORT).show()
-                        }
-                    })
+            it.map(object: ToUsersValueMapper {
+                override fun map(users: List<UserPresentationModel>) {
+                    super.map(users)
+                    Toast.makeText(requireContext(),  users.size.toString(), Toast.LENGTH_LONG).show()
                 }
-                else -> {}
-            }
+            })
         }
-
         viewModel.user.observe(
             viewLifecycleOwner
         ) {
@@ -137,12 +129,12 @@ class UserFragment : Fragment() {
                             binding.blockContact.mailValue.text = mail
                             binding.blockLocation.countryValue.text = country
                             binding.blockLocation.cityValue.text = city
-                            ImageLoader.BaseCircleGlide(image, thumbnail, Pair(
+                            LoaderImage.BaseCircleGlide(binding.blockMainInformation.avatar, thumbnail, Pair(
                                 binding.blockMainInformation.avatar.width,
                                 binding.blockMainInformation.avatar.height
                             ),
                                 R.drawable.ic_person
-                            ).load(binding.blockMainInformation.avatar)
+                            ).load(image)
                             binding.progressBar.visibility = View.GONE
                             binding.informationContainer.visibility = View.VISIBLE
                         }
