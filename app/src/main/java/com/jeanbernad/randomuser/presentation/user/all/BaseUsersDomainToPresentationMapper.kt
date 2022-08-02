@@ -6,8 +6,9 @@ import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
 import com.jeanbernad.randomuser.domain.user.all.UsersDomainToPresentationMapper
 import com.jeanbernad.randomuser.presentation.common.ErrorPresentationMapper
 import com.jeanbernad.randomuser.presentation.user.UserPresentationModel
+import javax.inject.Inject
 
-class BaseUsersDomainToPresentationMapper(
+class BaseUsersDomainToPresentationMapper @Inject constructor(
     private val errorMapper: ErrorPresentationMapper,
     private val userMapper: UserDomainToPresentationMapper<UserPresentationModel>
 ) : UsersDomainToPresentationMapper<UsersPresentationModel> {

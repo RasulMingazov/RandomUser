@@ -8,8 +8,9 @@ import com.jeanbernad.randomuser.data.user.local.UserLocalDataSource
 import com.jeanbernad.randomuser.data.user.local.UserLocalModel
 import com.jeanbernad.randomuser.data.user.remote.UserRemoteDataSource
 import com.jeanbernad.randomuser.domain.user.UserRepository
+import javax.inject.Inject
 
-class BaseUserRepository<T, M>(
+class BaseUserRepository<T, M> @Inject constructor(
     private val userRemoteDataSource: UserRemoteDataSource,
     private val userLocalDataSource: UserLocalDataSource,
     private val toUserDataMapper: ToUserDataMapper,

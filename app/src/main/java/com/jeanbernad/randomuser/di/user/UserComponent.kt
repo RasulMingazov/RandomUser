@@ -7,7 +7,7 @@ import dagger.Component
 
 @Component(
     dependencies = [AppDependencies::class],
-    modules = [UserModule::class, ViewModelModule::class, UserProvideModule::class, UserBindModule::class]
+    modules = [UserModule::class, ViewModelModule::class, UserBindModule::class]
 )
 @UserScope
 interface UserComponent {

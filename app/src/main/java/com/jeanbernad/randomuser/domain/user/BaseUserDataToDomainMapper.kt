@@ -2,8 +2,9 @@ package com.jeanbernad.randomuser.domain.user
 
 import com.jeanbernad.randomuser.domain.common.ErrorDomainMapper
 import com.jeanbernad.randomuser.data.user.UserDataToDomainMapper
+import javax.inject.Inject
 
-class BaseUserDataToDomainMapper(
+class BaseUserDataToDomainMapper @Inject constructor(
     private val errorMapper: ErrorDomainMapper
 ) : UserDataToDomainMapper<UserDomain> {
 

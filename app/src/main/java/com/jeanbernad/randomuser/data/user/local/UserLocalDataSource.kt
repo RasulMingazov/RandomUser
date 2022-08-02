@@ -1,5 +1,7 @@
 package com.jeanbernad.randomuser.data.user.local
 
+import javax.inject.Inject
+
 interface UserLocalDataSource {
     suspend fun user(): UserLocalModel
 
@@ -9,7 +11,7 @@ interface UserLocalDataSource {
 
     suspend fun countUsers() : Int
 
-    class Base(private val userDao: UserDao) : UserLocalDataSource {
+    class Base @Inject constructor(private val userDao: UserDao) : UserLocalDataSource {
         override suspend fun user() = userDao.user()
 
         override suspend fun users() = userDao.allUsers()

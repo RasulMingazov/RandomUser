@@ -1,6 +1,7 @@
 package com.jeanbernad.randomuser.domain.user
 
 import com.jeanbernad.randomuser.domain.user.all.UsersDomain
+import javax.inject.Inject
 
 
 interface UserInteractor {
@@ -8,7 +9,7 @@ interface UserInteractor {
 
     suspend fun users(): UsersDomain
 
-    class Base(
+    class Base @Inject constructor(
         private val userRepository: UserRepository<UserDomain, UsersDomain>,
     ) : UserInteractor {
         override suspend fun user() = userRepository.user()

@@ -4,8 +4,9 @@ import com.jeanbernad.randomuser.presentation.common.ErrorPresentationMapper
 import com.jeanbernad.randomuser.core.ErrorType
 import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
 import com.jeanbernad.randomuser.presentation.common.DateTimeFormat
+import javax.inject.Inject
 
-class BaseUserDomainToPresentationMapper(
+class BaseUserDomainToPresentationMapper @Inject constructor(
     private val errorMapper: ErrorPresentationMapper,
     private val dateTimeFormat: DateTimeFormat
 ) : UserDomainToPresentationMapper<UserPresentationModel> {

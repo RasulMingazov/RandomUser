@@ -5,6 +5,7 @@ import com.jeanbernad.randomuser.data.user.local.UserLocalModel
 import com.jeanbernad.randomuser.data.user.remote.UserRemoteModel
 import java.lang.Exception
 import java.util.*
+import javax.inject.Inject
 
 interface ToUserDataMapper : Abstract.Mapper {
     fun map(
@@ -17,7 +18,7 @@ interface ToUserDataMapper : Abstract.Mapper {
 
     fun map(exception: Exception): UserData.Fail
 
-    class Base : ToUserDataMapper {
+    class Base @Inject constructor() : ToUserDataMapper {
         override fun map(userRemoteModel: UserRemoteModel) =
             with(userRemoteModel) {
                 UserData.Success(
