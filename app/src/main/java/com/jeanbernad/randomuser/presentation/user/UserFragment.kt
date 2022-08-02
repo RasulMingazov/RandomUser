@@ -92,7 +92,7 @@ class UserFragment : Fragment() {
             when (it) {
                 is UserPresentationModel.Progress -> {
                     binding.error.visibility = View.GONE
-                    binding.informationContainer.visibility = View.GONE
+                    binding.refresh.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is UserPresentationModel.Fail -> {
@@ -136,7 +136,7 @@ class UserFragment : Fragment() {
                                 R.drawable.ic_person
                             ).load(image)
                             binding.progressBar.visibility = View.GONE
-                            binding.informationContainer.visibility = View.VISIBLE
+                            binding.refresh.visibility = View.VISIBLE
                         }
                     })
                 }
