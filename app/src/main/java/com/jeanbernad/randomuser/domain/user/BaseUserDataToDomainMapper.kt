@@ -19,7 +19,6 @@ class BaseUserDataToDomainMapper @Inject constructor(
         coordinates: String,
         birthday: String,
         image: String,
-        thumbnail: String
     ) = UserDomain.Success(
         fullName,
         fullAddress,
@@ -30,8 +29,7 @@ class BaseUserDataToDomainMapper @Inject constructor(
         city,
         coordinates,
         birthday,
-        image,
-        thumbnail
+        image
     )
 
     override fun map(exception: Exception) = UserDomain.Fail(errorMapper.map(exception))

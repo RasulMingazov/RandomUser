@@ -4,7 +4,7 @@ import com.jeanbernad.randomuser.presentation.common.ErrorPresentationMapper
 import com.jeanbernad.randomuser.core.ErrorType
 import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
 import com.jeanbernad.randomuser.presentation.common.DateTimeFormat
-import com.jeanbernad.randomuser.presentation.common.TextOperation
+import com.jeanbernad.randomuser.core.TextOperation
 import javax.inject.Inject
 
 class BaseUserDomainToPresentationMapper @Inject constructor(
@@ -24,7 +24,6 @@ class BaseUserDomainToPresentationMapper @Inject constructor(
         coordinates: String,
         birthday: String,
         image: String,
-        thumbnail: String,
     ) = UserPresentationModel.Success(
         fullName,
         fullAddress,
@@ -36,7 +35,6 @@ class BaseUserDomainToPresentationMapper @Inject constructor(
         coordinates,
         dateTimeFormat.userDateToPresentation(birthday),
         image,
-        thumbnail,
         textOperation.combineEveryValue(fullName, birthday, gender, phone, mail, country, city, fullAddress, image)
     )
 

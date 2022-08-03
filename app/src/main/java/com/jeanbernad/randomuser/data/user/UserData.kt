@@ -17,7 +17,6 @@ interface UserData : Abstract.DataObject {
         private val coordinates: String,
         private val birthday: String,
         private val image: String,
-        private val thumbnail: String
     ) : UserData, ToLocalMap {
         override fun <T> map(mapper: UserDataToDomainMapper<T>) = mapper.map(
             fullName,
@@ -29,8 +28,7 @@ interface UserData : Abstract.DataObject {
             city,
             coordinates,
             birthday,
-            image,
-            thumbnail
+            image
         )
 
         override fun <P> mapToLocal(mapper: ToUserLocalMapper<P>) = mapper.mapToLocal(
@@ -43,8 +41,7 @@ interface UserData : Abstract.DataObject {
             city,
             coordinates,
             birthday,
-            image,
-            thumbnail
+            image
         )
     }
 

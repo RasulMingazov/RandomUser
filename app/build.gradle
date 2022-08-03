@@ -107,16 +107,15 @@ dependencies {
     implementation roomDependencies.ktx
     ksp roomDependencies.compiler
 
-    //Glide
-    implementation glideDependencies.glide
-    ksp glideDependencies.compiler
-
     //CircleImageView
     implementation "de.hdodenhof:circleimageview:$circleimageview_version"
 
     //SwipeRefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
 
+    //Coil
+    implementation "io.coil-kt:coil:$coil_version"
+    implementation "io.coil-kt:coil-base:$coil_version"
 }
 
 kapt {

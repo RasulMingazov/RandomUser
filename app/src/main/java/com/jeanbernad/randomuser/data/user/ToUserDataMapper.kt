@@ -36,8 +36,7 @@ interface ToUserDataMapper : Abstract.Mapper {
                     coordinates =
                     "(${location.coordinates.latitude}, ${location.coordinates.longitude})",
                     birthday = dob.date,
-                    image = picture.large,
-                    thumbnail = picture.thumbnail,
+                    image = picture.large
                 )
             }
 
@@ -53,8 +52,7 @@ interface ToUserDataMapper : Abstract.Mapper {
             city = userLocalModel.city,
             coordinates = userLocalModel.coordinates,
             birthday = userLocalModel.birthday,
-            image = userLocalModel.image,
-            thumbnail = userLocalModel.thumbnail
+            image = userLocalModel.image
         )
 
         override fun map(exception: Exception) = UserData.Fail(exception)

@@ -1,35 +1,69 @@
 package com.jeanbernad.randomuser.presentation.common
 
+import android.content.Context
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
-import androidx.annotation.DrawableRes
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DecodeFormat
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.request.RequestOptions
+import androidx.lifecycle.LifecycleOwner
+import coil.ImageLoader
+import coil.request.ImageRequest
+import coil.target.ImageViewTarget
+
 
 interface LoaderImage {
 
-    fun load(image: String)
+    fun load(
+        image: String,
+        imageView: ImageView,
+        start: () -> Unit,
+        success: () -> Unit
+    )
 
-    class BaseCircleGlide(
-        private val view: ImageView,
-        private val thumbnail: String,
-        private val size: Pair<Int, Int>,
-        @DrawableRes private val placeholder: Int
-    ) : LoaderImage {
-        override fun load(image: String) {
-            Glide.with(view.context)
-                .load(image)
-                .thumbnail(Glide.with(view.context).load(thumbnail))
-                .placeholder(placeholder)
-                .apply(
-                    RequestOptions()
-                        .fitCenter()
-                        .format(DecodeFormat.PREFER_ARGB_8888)
-                        .override(size.first, size.second)
-                )
-                .transform(CircleCrop())
-                .into(view)
+    fun load(
+        image: String,
+        imageView: ImageView
+    )
+
+    interface CoilSettings {
+        fun baseBuilder(image: String): ImageRequest.Builder
+    }
+
+    class Coil(
+        private val context: Context,
+        private val imageLoader: ImageLoader
+    ) : LoaderImage, CoilSettings {
+
+        override fun baseBuilder(image: String) = ImageRequest.Builder(context)
+            .data(image)
+
+        override fun load(
+            image: String,
+            imageView: ImageView,
+            start: () -> Unit,
+            success: () -> Unit,
+        ) {
+            imageLoader.enqueue(
+                baseBuilder(image)
+                    .target(object : ImageViewTarget(imageView) {
+                        override fun onStart(owner: LifecycleOwner) {
+                            super.onStart(owner)
+                            start.invoke()
+                        }
+
+                        override fun onSuccess(result: Drawable) {
+                            super.onSuccess(result)
+                            success.invoke()
+                        }
+                    })
+                    .build()
+            )
+        }
+
+        override fun load(image: String, imageView: ImageView) {
+            imageLoader.enqueue(
+                baseBuilder(image)
+                    .target(imageView)
+                    .build()
+            )
         }
     }
 }

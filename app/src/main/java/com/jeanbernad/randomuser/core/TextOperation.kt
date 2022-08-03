@@ -1,4 +1,4 @@
-package com.jeanbernad.randomuser.presentation.common
+package com.jeanbernad.randomuser.core
 
 interface TextOperation {
     fun combineEveryValue(vararg values: String): String

@@ -18,6 +18,7 @@ import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import com.jeanbernad.randomuser.di.app.AppDependenciesProvider
 import com.jeanbernad.randomuser.di.vm.ViewModelFactory
 import com.jeanbernad.randomuser.di.user.DaggerUserComponent
+import com.jeanbernad.randomuser.presentation.common.LoaderImage
 import com.jeanbernad.randomuser.presentation.user.all.ToUsersValueMapper
 import javax.inject.Inject
 
@@ -30,6 +31,9 @@ class UserFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
     }
+
+    @Inject
+    lateinit var loaderImage: LoaderImage
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -103,22 +107,24 @@ class UserFragment : Fragment() {
                 is UserPresentationModel.Fail -> {
                     binding.progressBar.visibility = View.GONE
                     binding.error.visibility = View.VISIBLE
-                    it.bind(binding.error)
+                    it.bindError(binding.error)
                 }
                 is UserPresentationModel.Success -> {
-                    it.bind(
-                        binding.blockMainInformation.name,
-                        binding.blockBirthdayGender.genderValue,
-                        binding.blockBirthdayGender.birthdayValue,
-                        binding.blockContact.phoneValue,
-                        binding.blockContact.mailValue,
-                        binding.blockLocation.countryValue,
-                        binding.blockLocation.cityValue,
-                        binding.blockLocation.addressValue,
-                        binding.blockLocation.coordinatesValue
-                    )
-                    binding.progressBar.visibility = View.GONE
-                    binding.refresh.visibility = View.VISIBLE
+                    it.bindName(binding.blockMainInformation.name)
+                    it.bindGender(binding.blockBirthdayGender.genderValue)
+                    it.bindBirthday(binding.blockBirthdayGender.birthdayValue)
+                    it.bindPhone(binding.blockContact.phoneValue)
+                    it.bindMail(binding.blockContact.mailValue)
+                    it.bindMail(binding.blockContact.mailValue)
+                    it.bindCountry(binding.blockLocation.countryValue)
+                    it.bindCity(binding.blockLocation.cityValue)
+                    it.bindAddress(binding.blockLocation.addressValue)
+                    it.bindCoordinates(binding.blockLocation.coordinatesValue)
+                    it.bindAvatar(loaderImage, binding.blockMainInformation.avatar, {}, {
+                        binding.progressBar.visibility = View.GONE
+                        binding.refresh.visibility = View.VISIBLE
+                    })
+
                     it.map(object : ToUserValueMapper {
                         override fun map(allValues: String) {
                             userValue = allValues

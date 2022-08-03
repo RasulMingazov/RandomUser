@@ -9,7 +9,7 @@ interface UserDatabase {
 
     abstract class AbstractRoom(context: Context, databaseName: String) : UserDatabase {
 
-        @Database(entities = [UserLocalModel::class], version = 1, exportSchema = false)
+        @Database(entities = [UserLocalModel::class], version = 2, exportSchema = false)
         abstract class UsersRoom : RoomDatabase() {
             abstract fun userDao(): UserDao
         }
