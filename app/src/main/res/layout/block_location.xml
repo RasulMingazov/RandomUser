@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/user_block_values_margin"
-            android:text="@string/city"
+            android:text="@string/address"
             android:textSize="@dimen/user_block_values_text_size" />
 
         <TextView

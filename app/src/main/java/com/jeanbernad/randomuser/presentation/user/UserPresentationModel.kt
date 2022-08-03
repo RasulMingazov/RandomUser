@@ -1,11 +1,26 @@
 package com.jeanbernad.randomuser.presentation.user
 
+import android.widget.TextView
 import com.jeanbernad.randomuser.core.Abstract
+import com.jeanbernad.randomuser.presentation.common.TextOperation
 
-sealed class UserPresentationModel : Abstract.PresentationObject<Unit, ToUserValueMapper> {
+sealed class UserPresentationModel : UserUiBind, Abstract.PresentationObject<Unit, ToUserValueMapper> {
+
     override fun map(mapper: ToUserValueMapper) = Unit
 
-    override fun textValue() = String()
+    override fun bind(
+        name: TextView,
+        gender: TextView,
+        birthday: TextView,
+        phone: TextView,
+        mail: TextView,
+        country: TextView,
+        city: TextView,
+        address: TextView,
+        coordinates: TextView
+    ) = Unit
+
+    override fun bind(error: TextView) = Unit
 
     object Progress : UserPresentationModel()
 
@@ -23,25 +38,36 @@ sealed class UserPresentationModel : Abstract.PresentationObject<Unit, ToUserVal
         private val thumbnail: String
     ) : UserPresentationModel() {
 
-        override fun textValue() =
-            "${fullName}\n${birthday}\n${gender}\n${phone}\n${mail}\n${country}\n${city}\n${fullAddress}\n${image}"
+        override fun bind(
+            name: TextView,
+            gender: TextView,
+            birthday: TextView,
+            phone: TextView,
+            mail: TextView,
+            country: TextView,
+            city: TextView,
+            address: TextView,
+            coordinates: TextView
+        ) {
+            name.text = this.fullName
+            gender.text = this.gender
+            birthday.text = this.birthday
+            phone.text = this.phone
+            mail.text = this.mail
+            country.text = this.country
+            city.text = this.city
+            address.text = this.fullAddress
+            coordinates.text = this.coordinates
+        }
 
         override fun map(mapper: ToUserValueMapper) = mapper.map(
-            fullName,
-            fullAddress,
-            gender,
-            phone,
-            mail,
-            country,
-            city,
-            coordinates,
-            birthday,
-            image,
-            thumbnail
+            TextOperation.Base().combineEveryValue(fullName, birthday, gender, phone, mail, country, city, fullAddress, image)
         )
     }
 
     data class Fail(private val message: String) : UserPresentationModel() {
-        override fun map(mapper: ToUserValueMapper) = mapper.map(message)
+        override fun bind(error: TextView) {
+            error.text = message
+        }
     }
 }

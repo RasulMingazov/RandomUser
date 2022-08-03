@@ -6,8 +6,6 @@ import com.jeanbernad.randomuser.presentation.user.UserPresentationModel
 sealed class UsersPresentationModel : Abstract.PresentationObject<Unit, ToUsersValueMapper> {
     override fun map(mapper: ToUsersValueMapper) = Unit
 
-    override fun textValue() = String()
-
     object Progress : UsersPresentationModel()
 
     object Empty : UsersPresentationModel() {

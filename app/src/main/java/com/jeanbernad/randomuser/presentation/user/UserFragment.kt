@@ -9,8 +9,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.jeanbernad.randomuser.R
-import com.jeanbernad.randomuser.presentation.common.LoaderImage
 import com.jeanbernad.randomuser.core.autoCleared
 import com.jeanbernad.randomuser.presentation.common.navigation.MailNavigator
 import com.jeanbernad.randomuser.presentation.common.navigation.MapsNavigator
@@ -50,17 +48,23 @@ class UserFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.blockContact.dataPhone.setOnClickListener {
-            startActivity(PhoneNavigator.Base().intoPhone("${binding.blockContact.phoneValue.text}"))
+            startActivity(
+                PhoneNavigator.Base().intoPhone("${binding.blockContact.phoneValue.text}")
+            )
         }
 
         binding.blockContact.dataMail.setOnClickListener {
-            startActivity(MailNavigator.Base().intoMail("${binding.blockContact.mailValue.text}"), null)
+            startActivity(
+                MailNavigator.Base().intoMail("${binding.blockContact.mailValue.text}"),
+                null
+            )
         }
 
         binding.blockLocation.dataCoordinates.setOnClickListener {
             startActivity(
                 MapsNavigator.Base().intoMaps(
-                    binding.blockLocation.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
+                    binding.blockLocation.coordinatesValue.text.removeSurrounding("(", ")")
+                        .split(", ")
                 )
             )
         }
@@ -79,10 +83,11 @@ class UserFragment : Fragment() {
         viewModel.users.observe(
             viewLifecycleOwner,
         ) {
-            it.map(object: ToUsersValueMapper {
+            it.map(object : ToUsersValueMapper {
                 override fun map(users: List<UserPresentationModel>) {
                     super.map(users)
-                    Toast.makeText(requireContext(),  users.size.toString(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(), users.size.toString(), Toast.LENGTH_LONG)
+                        .show()
                 }
             })
         }
@@ -96,47 +101,27 @@ class UserFragment : Fragment() {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is UserPresentationModel.Fail -> {
-                    it.map(object : ToUserValueMapper {
-                        override fun map(errorMessage: String) {
-                            binding.progressBar.visibility = View.GONE
-                            binding.error.visibility = View.VISIBLE
-                            binding.error.text = errorMessage
-                        }
-                    })
+                    binding.progressBar.visibility = View.GONE
+                    binding.error.visibility = View.VISIBLE
+                    it.bind(binding.error)
                 }
                 is UserPresentationModel.Success -> {
-                    userValue = it.textValue()
+                    it.bind(
+                        binding.blockMainInformation.name,
+                        binding.blockBirthdayGender.genderValue,
+                        binding.blockBirthdayGender.birthdayValue,
+                        binding.blockContact.phoneValue,
+                        binding.blockContact.mailValue,
+                        binding.blockLocation.countryValue,
+                        binding.blockLocation.cityValue,
+                        binding.blockLocation.addressValue,
+                        binding.blockLocation.coordinatesValue
+                    )
+                    binding.progressBar.visibility = View.GONE
+                    binding.refresh.visibility = View.VISIBLE
                     it.map(object : ToUserValueMapper {
-                        override fun map(
-                            fullName: String,
-                            fullAddress: String,
-                            gender: String,
-                            phone: String,
-                            mail: String,
-                            country: String,
-                            city: String,
-                            coordinates: String,
-                            birthday: String,
-                            image: String,
-                            thumbnail: String
-                        ) {
-                            binding.blockMainInformation.name.text = fullName
-                            binding.blockLocation.addressValue.text = fullAddress
-                            binding.blockLocation.coordinatesValue.text = coordinates
-                            binding.blockBirthdayGender.genderValue.text = gender
-                            binding.blockBirthdayGender.birthdayValue.text = birthday
-                            binding.blockContact.phoneValue.text = phone
-                            binding.blockContact.mailValue.text = mail
-                            binding.blockLocation.countryValue.text = country
-                            binding.blockLocation.cityValue.text = city
-                            LoaderImage.BaseCircleGlide(binding.blockMainInformation.avatar, thumbnail, Pair(
-                                binding.blockMainInformation.avatar.width,
-                                binding.blockMainInformation.avatar.height
-                            ),
-                                R.drawable.ic_person
-                            ).load(image)
-                            binding.progressBar.visibility = View.GONE
-                            binding.refresh.visibility = View.VISIBLE
+                        override fun map(allValues: String) {
+                            userValue = allValues
                         }
                     })
                 }

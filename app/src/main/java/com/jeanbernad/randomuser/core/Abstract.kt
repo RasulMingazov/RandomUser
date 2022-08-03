@@ -5,9 +5,7 @@ abstract class Abstract {
         fun map(mapper: M): T
     }
 
-    interface PresentationObject<T, M: Mapper>: Object<T, M> {
-        fun textValue() : String
-    }
+    interface PresentationObject<T, M: Mapper>: Object<T, M>
 
     interface DataObject
 
@@ -18,4 +16,7 @@ abstract class Abstract {
             fun map(data: S): R
         }
     }
+
+    interface UiObjectBind
+
 }
