@@ -35,7 +35,8 @@ sealed class UserPresentationModel : UserUiBind, Abstract.PresentationObject<Uni
         private val coordinates: String,
         private val birthday: String,
         private val image: String,
-        private val thumbnail: String
+        private val thumbnail: String,
+        private val allValues: String
     ) : UserPresentationModel() {
 
         override fun bind(
@@ -60,9 +61,7 @@ sealed class UserPresentationModel : UserUiBind, Abstract.PresentationObject<Uni
             coordinates.text = this.coordinates
         }
 
-        override fun map(mapper: ToUserValueMapper) = mapper.map(
-            TextOperation.Base().combineEveryValue(fullName, birthday, gender, phone, mail, country, city, fullAddress, image)
-        )
+        override fun map(mapper: ToUserValueMapper) = mapper.map(allValues)
     }
 
     data class Fail(private val message: String) : UserPresentationModel() {
