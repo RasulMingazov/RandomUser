@@ -30,6 +30,12 @@ sealed class UserPresentationModel : UserUiBind,
 
     object Progress : UserPresentationModel()
 
+    data class Fail(private val message: String) : UserPresentationModel() {
+        override fun bindError(error: TextView) {
+            error.text = message
+        }
+    }
+
     class Success(
         private val fullName: String,
         private val fullAddress: String,
@@ -90,11 +96,5 @@ sealed class UserPresentationModel : UserUiBind,
         }
 
         override fun map(mapper: ToUserValueMapper) = mapper.map(allValues)
-    }
-
-    data class Fail(private val message: String) : UserPresentationModel() {
-        override fun bindError(error: TextView) {
-            error.text = message
-        }
     }
 }
