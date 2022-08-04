@@ -6,8 +6,9 @@ import com.jeanbernad.randomuser.data.user.all.UsersDataToDomainMapper
 import com.jeanbernad.randomuser.domain.common.ErrorDomainMapper
 import com.jeanbernad.randomuser.domain.user.UserDomain
 import java.lang.Exception
+import javax.inject.Inject
 
-class BaseUsersDataToDomainMapper(
+class BaseUsersDataToDomainMapper @Inject constructor(
     private val errorMapper: ErrorDomainMapper,
     private val userMapper: UserDataToDomainMapper<UserDomain>
 ) : UsersDataToDomainMapper<UsersDomain> {

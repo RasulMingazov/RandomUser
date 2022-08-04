@@ -5,7 +5,10 @@ import androidx.annotation.RestrictTo
 import com.jeanbernad.randomuser.data.user.local.UserDao
 import com.jeanbernad.randomuser.data.user.remote.UserService
 import com.jeanbernad.randomuser.domain.common.ErrorDomainMapper
+import com.jeanbernad.randomuser.presentation.common.DateTimeFormat
 import com.jeanbernad.randomuser.presentation.common.ErrorPresentationMapper
+import com.jeanbernad.randomuser.core.TextOperation
+import com.jeanbernad.randomuser.presentation.common.LoaderImage
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -17,8 +20,11 @@ interface AppComponent : AppDependencies {
 
     override val errorUiMapper: ErrorPresentationMapper
     override val errorDomainMapper: ErrorDomainMapper
+    override val dateTimeFormat: DateTimeFormat
+    override val textOperation: TextOperation
     override val userService: UserService
     override val userDao: UserDao
+    override val loaderImage: LoaderImage
 
     @Component.Builder
     interface Builder {
@@ -31,8 +37,11 @@ interface AppComponent : AppDependencies {
 interface AppDependencies {
     val errorUiMapper: ErrorPresentationMapper
     val errorDomainMapper: ErrorDomainMapper
+    val dateTimeFormat: DateTimeFormat
+    val textOperation: TextOperation
     val userService: UserService
     val userDao: UserDao
+    val loaderImage: LoaderImage
 }
 
 interface AppDependenciesProvider {

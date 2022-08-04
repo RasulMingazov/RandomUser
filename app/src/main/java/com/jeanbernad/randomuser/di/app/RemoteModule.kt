@@ -1,8 +1,7 @@
 package com.jeanbernad.randomuser.di.app
 
 import com.google.gson.Gson
-import com.jeanbernad.randomuser.data.user.remote.UserService
-import com.jeanbernad.randomuser.di.user.network.UserNetworkModule
+import com.jeanbernad.randomuser.di.user.network.UserRemoteModule
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -11,8 +10,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-@Module(includes = [UserNetworkModule::class])
-class NetworkModule {
+@Module(includes = [UserRemoteModule::class])
+class RemoteModule {
 
     @Provides
     @Singleton

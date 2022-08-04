@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.jeanbernad.randomuser.presentation.common.ImageLoader
 import com.jeanbernad.randomuser.core.autoCleared
 import com.jeanbernad.randomuser.presentation.common.navigation.MailNavigator
 import com.jeanbernad.randomuser.presentation.common.navigation.MapsNavigator
@@ -18,6 +18,8 @@ import com.jeanbernad.randomuser.databinding.FragmentUserBinding
 import com.jeanbernad.randomuser.di.app.AppDependenciesProvider
 import com.jeanbernad.randomuser.di.vm.ViewModelFactory
 import com.jeanbernad.randomuser.di.user.DaggerUserComponent
+import com.jeanbernad.randomuser.presentation.common.LoaderImage
+import com.jeanbernad.randomuser.presentation.user.all.ToUsersValueMapper
 import javax.inject.Inject
 
 class UserFragment : Fragment() {
@@ -29,6 +31,9 @@ class UserFragment : Fragment() {
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
     }
+
+    @Inject
+    lateinit var loaderImage: LoaderImage
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -46,78 +51,83 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.phoneBlock.setOnClickListener {
-            startActivity(PhoneNavigator.Base().intoPhone("${binding.phoneNumber.text}"))
+        binding.blockContact.dataPhone.setOnClickListener {
+            startActivity(
+                PhoneNavigator.Base().intoPhone("${binding.blockContact.phoneValue.text}")
+            )
         }
 
-        binding.mailBlock.setOnClickListener {
-            startActivity(MailNavigator.Base().intoMail("${binding.mailValue.text}"), null)
+        binding.blockContact.dataMail.setOnClickListener {
+            startActivity(
+                MailNavigator.Base().intoMail("${binding.blockContact.mailValue.text}"),
+                null
+            )
         }
 
-        binding.coordinatesBlock.setOnClickListener {
+        binding.blockLocation.dataCoordinates.setOnClickListener {
             startActivity(
                 MapsNavigator.Base().intoMaps(
-                    binding.coordinatesValue.text.removeSurrounding("(", ")").split(", ")
+                    binding.blockLocation.coordinatesValue.text.removeSurrounding("(", ")")
+                        .split(", ")
                 )
             )
         }
 
-        binding.share.setOnClickListener {
+        binding.toolbar.share.setOnClickListener {
             startActivity(
                 Intent.createChooser(ShareNavigator.Base().intoShare(userValue), null)
             )
         }
 
-        binding.swipeRefresh.setOnRefreshListener {
+        binding.refresh.setOnRefreshListener {
             viewModel.refresh()
-            binding.swipeRefresh.isRefreshing = false
+            binding.refresh.isRefreshing = false
         }
 
+        viewModel.users.observe(
+            viewLifecycleOwner,
+        ) {
+            it.map(object : ToUsersValueMapper {
+                override fun map(users: List<UserPresentationModel>) {
+                    super.map(users)
+                    Toast.makeText(requireContext(), users.size.toString(), Toast.LENGTH_LONG)
+                        .show()
+                }
+            })
+        }
         viewModel.user.observe(
             viewLifecycleOwner
         ) {
             when (it) {
                 is UserPresentationModel.Progress -> {
                     binding.error.visibility = View.GONE
-                    binding.container.visibility = View.GONE
+                    binding.refresh.visibility = View.GONE
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is UserPresentationModel.Fail -> {
-                    it.map(object : ToUserValueMapper {
-                        override fun map(errorMessage: String) {
-                            binding.progressBar.visibility = View.GONE
-                            binding.error.visibility = View.VISIBLE
-                            binding.error.text = errorMessage
-                        }
-                    })
+                    binding.progressBar.visibility = View.GONE
+                    binding.error.visibility = View.VISIBLE
+                    it.bindError(binding.error)
                 }
                 is UserPresentationModel.Success -> {
-                    userValue = it.textValue()
+                    it.bindName(binding.blockMainInformation.name)
+                    it.bindGender(binding.blockBirthdayGender.genderValue)
+                    it.bindBirthday(binding.blockBirthdayGender.birthdayValue)
+                    it.bindPhone(binding.blockContact.phoneValue)
+                    it.bindMail(binding.blockContact.mailValue)
+                    it.bindMail(binding.blockContact.mailValue)
+                    it.bindCountry(binding.blockLocation.countryValue)
+                    it.bindCity(binding.blockLocation.cityValue)
+                    it.bindAddress(binding.blockLocation.addressValue)
+                    it.bindCoordinates(binding.blockLocation.coordinatesValue)
+                    it.bindAvatar(loaderImage, binding.blockMainInformation.avatar, {}, {
+                        binding.progressBar.visibility = View.GONE
+                        binding.refresh.visibility = View.VISIBLE
+                    })
+
                     it.map(object : ToUserValueMapper {
-                        override fun map(
-                            fullName: String,
-                            fullAddress: String,
-                            gender: String,
-                            phone: String,
-                            mail: String,
-                            country: String,
-                            city: String,
-                            coordinates: String,
-                            birthday: String,
-                            image: String
-                        ) {
-                            binding.name.text = fullName
-                            binding.addressName.text = fullAddress
-                            binding.coordinatesValue.text = coordinates
-                            binding.genderValue.text = gender
-                            binding.birthdayDate.text = birthday
-                            binding.phoneNumber.text = phone
-                            binding.mailValue.text = mail
-                            binding.countyName.text = country
-                            binding.cityName.text = city
-                            ImageLoader.BaseGlide(image).load(binding.avatar)
-                            binding.progressBar.visibility = View.GONE
-                            binding.container.visibility = View.VISIBLE
+                        override fun map(allValues: String) {
+                            userValue = allValues
                         }
                     })
                 }

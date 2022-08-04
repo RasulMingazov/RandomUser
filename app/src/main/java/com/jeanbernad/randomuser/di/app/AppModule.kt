@@ -7,7 +7,7 @@ import com.jeanbernad.randomuser.presentation.common.ErrorPresentationMapper
 import dagger.Module
 import dagger.Provides
 
-@Module(includes = [NetworkModule::class, DatabaseModule::class])
+@Module(includes = [PresentationModule::class, RemoteModule::class, DatabaseModule::class])
 class AppModule {
 
     @Provides
@@ -19,4 +19,5 @@ class AppModule {
 
     @Provides
     fun provideErrorDomainMapper(): ErrorDomainMapper = ErrorDomainMapper.Base()
+
 }

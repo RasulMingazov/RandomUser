@@ -1,6 +1,7 @@
 package com.jeanbernad.randomuser.data.user.local
 
 import com.jeanbernad.randomuser.core.Abstract
+import javax.inject.Inject
 
 interface ToUserLocalMapper<T>: Abstract.Mapper {
     fun mapToLocal(
@@ -16,7 +17,7 @@ interface ToUserLocalMapper<T>: Abstract.Mapper {
         image: String
     ): T
 
-    class Base: ToUserLocalMapper<UserLocalModel> {
+    class Base @Inject constructor(): ToUserLocalMapper<UserLocalModel> {
         override fun mapToLocal(
             fullName: String,
             fullAddress: String,

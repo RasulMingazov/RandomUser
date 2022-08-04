@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'com.google.devtools.ksp' version "1.6.21-1.0.5"
     id 'androidx.navigation.safeargs.kotlin'
 }
 
@@ -26,7 +27,8 @@ android {
 
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+                arguments += ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
             }
         }
     }
@@ -50,7 +52,6 @@ android {
 }
 
 dependencies {
-
     implementation "androidx.core:core-ktx:$kotlin_version"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation "com.google.android.material:material:$material_version"
@@ -90,26 +91,21 @@ dependencies {
     implementation koinDependencies.android
 
     //di
-    def dagger = "2.40.2"
-    implementation "com.google.dagger:dagger:$dagger"
-    kapt "com.google.dagger:dagger-compiler:$dagger"
+    implementation daggerDependencies.dagger
+    //todo waiting for ksp
+    kapt daggerDependencies.compiler
 
-    def okhttp = "4.9.0"
-    implementation "com.squareup.okhttp3:okhttp:$okhttp"
-    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp"
+    implementation okhttpDependenciees.okhttp
+    implementation okhttpDependenciees.interseptor
 
     //Retrofit
     implementation retrofitDependencies.retrofit
     implementation retrofitDependencies.converter
 
     //Room
-    implementation roomDependencies.ktx
     implementation roomDependencies.runtime
-    kapt roomDependencies.compiler
-
-    //Glide
-    implementation glideDependencies.glide
-    kapt glideDependencies.compiler
+    implementation roomDependencies.ktx
+    ksp roomDependencies.compiler
 
     //CircleImageView
     implementation "de.hdodenhof:circleimageview:$circleimageview_version"
@@ -117,6 +113,9 @@ dependencies {
     //SwipeRefresh
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
 
+    //Coil
+    implementation "io.coil-kt:coil:$coil_version"
+    implementation "io.coil-kt:coil-base:$coil_version"
 }
 
 kapt {

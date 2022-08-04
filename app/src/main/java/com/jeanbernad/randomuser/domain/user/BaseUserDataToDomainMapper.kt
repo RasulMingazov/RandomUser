@@ -2,8 +2,9 @@ package com.jeanbernad.randomuser.domain.user
 
 import com.jeanbernad.randomuser.domain.common.ErrorDomainMapper
 import com.jeanbernad.randomuser.data.user.UserDataToDomainMapper
+import javax.inject.Inject
 
-class BaseUserDataToDomainMapper(
+class BaseUserDataToDomainMapper @Inject constructor(
     private val errorMapper: ErrorDomainMapper
 ) : UserDataToDomainMapper<UserDomain> {
 
@@ -17,7 +18,7 @@ class BaseUserDataToDomainMapper(
         city: String,
         coordinates: String,
         birthday: String,
-        image: String
+        image: String,
     ) = UserDomain.Success(
         fullName,
         fullAddress,
