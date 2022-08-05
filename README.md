@@ -8,8 +8,8 @@ Android - приложение, загружающее информацию из
 1. Clean Architecture
 1. LiveData
 2. Room (for database)
-3. Koin (for dependency injection)
+3. Dagger (for dependency injection)
 4. Coroutines
 5. Retrofit
-6. Glide
+6. Coil
 7. Navigation
