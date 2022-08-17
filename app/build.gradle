@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 32
 
     viewBinding {
         enabled = true
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "com.jeanbernad.randomuser"
         minSdk 26
-        targetSdk 31
+        targetSdk 32
         versionCode 1
         versionName "1.0"
 
@@ -80,7 +80,6 @@ dependencies {
     implementation lifecycleDependencies.runtime
     implementation lifecycleDependencies.livedata
     implementation lifecycleDependencies.common
-    implementation lifecycleDependencies.extensions
 
     //Navigation
     implementation navigationDependencies.fragment
@@ -90,7 +89,7 @@ dependencies {
     implementation koinDependencies.core
     implementation koinDependencies.android
 
-    //di
+    //Dagger
     implementation daggerDependencies.dagger
     //todo waiting for ksp
     kapt daggerDependencies.compiler
@@ -107,15 +106,18 @@ dependencies {
     implementation roomDependencies.ktx
     ksp roomDependencies.compiler
 
+    //Coil
+    implementation coilDependencies.coil
+    implementation coilDependencies.base
+
     //CircleImageView
-    implementation "de.hdodenhof:circleimageview:$circleimageview_version"
+    implementation circleImageViewDependency
 
     //SwipeRefresh
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
+    implementation swiperefreshlayoutDependency
 
-    //Coil
-    implementation "io.coil-kt:coil:$coil_version"
-    implementation "io.coil-kt:coil-base:$coil_version"
+    //Launch screen
+    implementation launchScreenDependency
 }
 
 kapt {
