@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.jeanbernad.randomuser.core.Abstract
 import com.jeanbernad.randomuser.presentation.common.LoaderImage
 
-interface UserUiBind : Abstract.UiObjectBind {
+interface UserPresentationBind : Abstract.PresentationModelBind {
 
     fun bindName(name: TextView)
     fun bindGender(gender: TextView)

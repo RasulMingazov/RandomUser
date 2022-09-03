@@ -12,6 +12,7 @@ import com.jeanbernad.randomuser.domain.user.all.BaseUsersDataToDomainMapper
 import com.jeanbernad.randomuser.domain.user.all.UsersDomain
 import com.jeanbernad.randomuser.domain.user.all.UsersDomainToPresentationMapper
 import com.jeanbernad.randomuser.presentation.user.BaseUserDomainToPresentationMapper
+import com.jeanbernad.randomuser.presentation.user.UserCommunication
 import com.jeanbernad.randomuser.presentation.user.UserPresentationModel
 import com.jeanbernad.randomuser.presentation.user.all.BaseUsersDomainToPresentationMapper
 import com.jeanbernad.randomuser.presentation.user.all.UsersPresentationModel
@@ -52,4 +53,8 @@ interface UserBindModule {
 
     @Binds
     fun bindUsersDomainToPresentationMapper(usersDomainToPresentationMapper: BaseUsersDomainToPresentationMapper): UsersDomainToPresentationMapper<UsersPresentationModel>
+
+    @Binds
+    fun bindUserCommunication(userCommunication: UserCommunication.Base): UserCommunication
+
 }

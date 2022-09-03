@@ -5,7 +5,7 @@ import android.widget.TextView
 import com.jeanbernad.randomuser.core.Abstract
 import com.jeanbernad.randomuser.presentation.common.LoaderImage
 
-sealed class UserPresentationModel : UserUiBind,
+sealed class UserPresentationModel : UserPresentationBind,
     Abstract.PresentationObject<Unit, ToUserValueMapper> {
 
     override fun map(mapper: ToUserValueMapper) = Unit

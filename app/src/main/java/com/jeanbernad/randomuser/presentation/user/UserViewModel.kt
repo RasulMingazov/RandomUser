@@ -3,43 +3,29 @@ package com.jeanbernad.randomuser.presentation.user
 import androidx.lifecycle.*
 import com.jeanbernad.randomuser.domain.user.UserDomainToPresentationMapper
 import com.jeanbernad.randomuser.domain.user.UserInteractor
-import com.jeanbernad.randomuser.domain.user.all.UsersDomainToPresentationMapper
-import com.jeanbernad.randomuser.presentation.user.all.UsersPresentationModel
+import com.jeanbernad.randomuser.presentation.common.BaseViewModel
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-class UserViewModel @Inject constructor(
-    private val interactor: UserInteractor,
-    private val presentationMapper: UserDomainToPresentationMapper<UserPresentationModel>,
-    private val usersPresentationMapper: UsersDomainToPresentationMapper<UsersPresentationModel>
-) : ViewModel() {
+interface UserViewModel {
+    fun user()
 
-    private var reloadTrigger = MutableLiveData<Boolean>()
+    class Base @Inject constructor(
+        private val interactor: UserInteractor,
+        private val presentationMapper: UserDomainToPresentationMapper<UserPresentationModel>,
+        private val communication: UserCommunication
+    ) : BaseViewModel.Base<UserPresentationModel>(communication), UserViewModel {
 
-    init {
-        refresh()
-    }
-
-    val user = Transformations.switchMap(reloadTrigger) {
-        liveData(Dispatchers.IO) {
-            emit(UserPresentationModel.Progress)
-            val presentationUser = interactor.user().map(presentationMapper)
-            withContext(Dispatchers.IO) {
-                emit(presentationUser)
+        override fun user() {
+            viewModelScope.launch(Dispatchers.IO) {
+                withContext(Dispatchers.Main) {
+                    communication.map(UserPresentationModel.Progress)
+                }
+                val user = interactor.user().map(presentationMapper)
+                withContext(Dispatchers.Main) {
+                    communication.map(user)
+                }
             }
         }
-    }
-
-    val users = Transformations.switchMap(reloadTrigger) {
-        liveData(Dispatchers.IO) {
-            val prUsers = interactor.users().map(usersPresentationMapper)
-            withContext(Dispatchers.IO) {
-                emit(prUsers)
-            }
-        }
-    }
-
-    fun refresh() {
-        reloadTrigger.value = true
     }
 }

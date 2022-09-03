@@ -29,7 +29,7 @@ class UserFragment : Fragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by lazy {
-        ViewModelProvider(this, viewModelFactory)[UserViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[UserViewModel.Base::class.java]
     }
 
     @Inject
@@ -80,24 +80,11 @@ class UserFragment : Fragment() {
         }
 
         binding.refresh.setOnRefreshListener {
-            viewModel.refresh()
+            viewModel.user()
             binding.refresh.isRefreshing = false
         }
 
-        viewModel.users.observe(
-            viewLifecycleOwner,
-        ) {
-            it.map(object : ToUsersValueMapper {
-                override fun map(users: List<UserPresentationModel>) {
-                    super.map(users)
-                    Toast.makeText(requireContext(), users.size.toString(), Toast.LENGTH_LONG)
-                        .show()
-                }
-            })
-        }
-        viewModel.user.observe(
-            viewLifecycleOwner
-        ) {
+        viewModel.observe(this) {
             when (it) {
                 is UserPresentationModel.Progress -> {
                     binding.error.visibility = View.GONE
@@ -124,7 +111,6 @@ class UserFragment : Fragment() {
                         binding.progressBar.visibility = View.GONE
                         binding.refresh.visibility = View.VISIBLE
                     })
-
                     it.map(object : ToUserValueMapper {
                         override fun map(allValues: String) {
                             userValue = allValues
@@ -133,5 +119,6 @@ class UserFragment : Fragment() {
                 }
             }
         }
+        viewModel.user()
     }
 }
