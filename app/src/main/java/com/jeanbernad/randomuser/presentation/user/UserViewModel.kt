@@ -17,10 +17,8 @@ interface UserViewModel {
     ) : BaseViewModel.Base<UserPresentationModel>(communication), UserViewModel {
 
         override fun user() {
+            communication.map(UserPresentationModel.Progress)
             viewModelScope.launch(Dispatchers.IO) {
-                withContext(Dispatchers.Main) {
-                    communication.map(UserPresentationModel.Progress)
-                }
                 val user = interactor.user().map(presentationMapper)
                 withContext(Dispatchers.Main) {
                     communication.map(user)
