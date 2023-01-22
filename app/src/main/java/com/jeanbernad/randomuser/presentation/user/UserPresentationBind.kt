@@ -1,21 +1,25 @@
 package com.jeanbernad.randomuser.presentation.user
 
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jeanbernad.randomuser.core.Abstract
+import com.jeanbernad.randomuser.databinding.BlockAvatarNameBinding
+import com.jeanbernad.randomuser.databinding.BlockBirthdayGenderBinding
+import com.jeanbernad.randomuser.databinding.BlockContactBinding
+import com.jeanbernad.randomuser.databinding.BlockLocationBinding
 import com.jeanbernad.randomuser.presentation.common.LoaderImage
 
 interface UserPresentationBind : Abstract.PresentationModelBind {
 
-    fun bindName(name: TextView)
-    fun bindGender(gender: TextView)
-    fun bindBirthday(birthday: TextView)
-    fun bindPhone(phone: TextView)
-    fun bindMail(mail: TextView)
-    fun bindCountry(country: TextView)
-    fun bindCity(city: TextView)
-    fun bindAddress(address: TextView)
-    fun bindCoordinates(coordinates: TextView)
+    fun bind(
+        mainBinding: BlockAvatarNameBinding,
+        blockBirthdayGenderBinding: BlockBirthdayGenderBinding,
+        contactBinding: BlockContactBinding,
+        locationBinding: BlockLocationBinding
+    )
+
     fun bindAvatar(
         loaderImage: LoaderImage,
         imageView: ImageView,
@@ -23,5 +27,12 @@ interface UserPresentationBind : Abstract.PresentationModelBind {
         success: () -> Unit
     )
 
-    fun bindError(error: TextView)
+    fun bindError(errorTv: TextView, progressBar: ProgressBar)
+
+    fun bindProgress(
+        errorTv: TextView,
+        refresh: SwipeRefreshLayout,
+        progressBar: ProgressBar,
+        shareIv: ImageView
+    )
 }

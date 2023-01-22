@@ -21,14 +21,14 @@ import com.jeanbernad.randomuser.presentation.common.LoaderImage
 import javax.inject.Inject
 
 class UserFragment : Fragment() {
-    private var binding by autoCleared<FragmentUserBinding>()
-    private lateinit var userValue: String
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
     private val viewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[UserViewModel.Base::class.java]
     }
+
+    private var binding by autoCleared<FragmentUserBinding>()
 
     @Inject
     lateinit var loaderImage: LoaderImage
@@ -51,42 +51,25 @@ class UserFragment : Fragment() {
 
         viewModel.user()
 
-        viewModel.observe(this) {
-            when (it) {
-                is UserPresentationModel.Progress -> {
-                    binding.error.visibility = View.GONE
-                    binding.refresh.visibility = View.GONE
-                    binding.progressBar.visibility = View.VISIBLE
-                    binding.toolbar.share.isEnabled = false
-                }
-                is UserPresentationModel.Fail -> {
-                    binding.progressBar.visibility = View.GONE
-                    binding.error.visibility = View.VISIBLE
-                    it.bindError(binding.error)
-                }
-                is UserPresentationModel.Success -> {
-                    it.bindName(binding.blockMainInformation.name)
-                    it.bindGender(binding.blockBirthdayGender.genderValue)
-                    it.bindBirthday(binding.blockBirthdayGender.birthdayValue)
-                    it.bindPhone(binding.blockContact.phoneValue)
-                    it.bindMail(binding.blockContact.mailValue)
-                    it.bindMail(binding.blockContact.mailValue)
-                    it.bindCountry(binding.blockLocation.countryValue)
-                    it.bindCity(binding.blockLocation.cityValue)
-                    it.bindAddress(binding.blockLocation.addressValue)
-                    it.bindCoordinates(binding.blockLocation.coordinatesValue)
-                    it.bindAvatar(loaderImage, binding.blockMainInformation.avatar, {}, {
-                        binding.progressBar.visibility = View.GONE
-                        binding.refresh.visibility = View.VISIBLE
-                        binding.toolbar.share.isEnabled = true
-                    })
-                    it.map(object : ToUserValueMapper {
-                        override fun map(allValues: String) {
-                            userValue = allValues
-                        }
-                    })
-                }
-            }
+        viewModel.observe(this) { user ->
+            user.bind(
+                binding.blockMainInformation,
+                binding.blockBirthdayGender,
+                binding.blockContact,
+                binding.blockLocation
+            )
+            user.bindError(binding.error, binding.progressBar)
+            user.bindAvatar(loaderImage, binding.blockMainInformation.avatar, {}, {
+                binding.progressBar.visibility = View.GONE
+                binding.refresh.visibility = View.VISIBLE
+                binding.toolbar.share.isEnabled = true
+            })
+            user.bindProgress(
+                binding.error,
+                binding.refresh,
+                binding.progressBar,
+                binding.toolbar.share
+            )
         }
 
         binding.blockContact.dataPhone.setOnClickListener {
@@ -113,7 +96,7 @@ class UserFragment : Fragment() {
 
         binding.toolbar.share.setOnClickListener {
             startActivity(
-                Intent.createChooser(ShareNavigator.Base().intoShare(userValue), null)
+                Intent.createChooser(ShareNavigator.Base().intoShare(viewModel.shareValues()), null)
             )
         }
 

@@ -1,8 +1,12 @@
 package com.jeanbernad.randomuser.presentation.user
 
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.isVisible
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.jeanbernad.randomuser.core.Abstract
+import com.jeanbernad.randomuser.databinding.*
 import com.jeanbernad.randomuser.presentation.common.LoaderImage
 
 sealed class UserPresentationModel : UserPresentationBind,
@@ -10,15 +14,13 @@ sealed class UserPresentationModel : UserPresentationBind,
 
     override fun map(mapper: ToUserValueMapper) = Unit
 
-    override fun bindName(name: TextView) = Unit
-    override fun bindGender(gender: TextView) = Unit
-    override fun bindBirthday(birthday: TextView) = Unit
-    override fun bindPhone(phone: TextView) = Unit
-    override fun bindMail(mail: TextView) = Unit
-    override fun bindCountry(country: TextView) = Unit
-    override fun bindCity(city: TextView) = Unit
-    override fun bindAddress(address: TextView) = Unit
-    override fun bindCoordinates(coordinates: TextView) = Unit
+    override fun bind(
+        mainBinding: BlockAvatarNameBinding,
+        blockBirthdayGenderBinding: BlockBirthdayGenderBinding,
+        contactBinding: BlockContactBinding,
+        locationBinding: BlockLocationBinding
+    ) = Unit
+
     override fun bindAvatar(
         loaderImage: LoaderImage,
         imageView: ImageView,
@@ -26,13 +28,34 @@ sealed class UserPresentationModel : UserPresentationBind,
         success: () -> Unit
     ) = Unit
 
-    override fun bindError(error: TextView) = Unit
+    override fun bindProgress(
+        errorTv: TextView,
+        refresh: SwipeRefreshLayout,
+        progressBar: ProgressBar,
+        shareIv: ImageView
+    ) = Unit
 
-    object Progress : UserPresentationModel()
+    override fun bindError(errorTv: TextView, progressBar: ProgressBar) = Unit
+
+    object Progress : UserPresentationModel() {
+        override fun bindProgress(
+            errorTv: TextView,
+            refresh: SwipeRefreshLayout,
+            progressBar: ProgressBar,
+            shareIv: ImageView
+        ) {
+            errorTv.isVisible = false
+            refresh.isVisible = false
+            progressBar.isVisible = true
+            shareIv.isEnabled = false
+        }
+    }
 
     data class Fail(private val message: String) : UserPresentationModel() {
-        override fun bindError(error: TextView) {
-            error.text = message
+        override fun bindError(errorTv: TextView, progressBar: ProgressBar) {
+            errorTv.text = message
+            errorTv.isVisible = true
+            progressBar.isVisible = false
         }
     }
 
@@ -50,40 +73,21 @@ sealed class UserPresentationModel : UserPresentationBind,
         private val allValues: String
     ) : UserPresentationModel() {
 
-        override fun bindName(name: TextView) {
-            name.text = this.fullName
-        }
-
-        override fun bindGender(gender: TextView) {
-            gender.text = this.gender
-        }
-
-        override fun bindPhone(phone: TextView) {
-            phone.text = this.phone
-        }
-
-        override fun bindMail(mail: TextView) {
-            mail.text = this.mail
-        }
-
-        override fun bindCountry(country: TextView) {
-            country.text = this.country
-        }
-
-        override fun bindCity(city: TextView) {
-            city.text = this.city
-        }
-
-        override fun bindAddress(address: TextView) {
-            address.text = this.fullAddress
-        }
-
-        override fun bindCoordinates(coordinates: TextView) {
-            coordinates.text = this.coordinates
-        }
-
-        override fun bindBirthday(birthday: TextView) {
-            birthday.text = this.birthday
+        override fun bind(
+            mainBinding: BlockAvatarNameBinding,
+            blockBirthdayGenderBinding: BlockBirthdayGenderBinding,
+            contactBinding: BlockContactBinding,
+            locationBinding: BlockLocationBinding
+        ) {
+            mainBinding.name.text = fullName
+            blockBirthdayGenderBinding.genderValue.text = gender
+            blockBirthdayGenderBinding.birthdayValue.text = birthday
+            contactBinding.phoneValue.text = phone
+            contactBinding.mailValue.text = mail
+            locationBinding.countryValue.text = country
+            locationBinding.cityValue.text = city
+            locationBinding.addressValue.text = fullAddress
+            locationBinding.coordinatesValue.text = coordinates
         }
 
         override fun bindAvatar(
