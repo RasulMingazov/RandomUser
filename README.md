@@ -11,4 +11,8 @@ Android application that loads information from the RandomUser API. The followin
 1. Coil
 1. Navigation Component
 
-![](randomuser.gif)
+### Usage:
+
+<p align="center">
+  <img src="randomuser.gif" alt="animated" />
+</p>
