@@ -6,6 +6,7 @@ Android application that loads information from the [Random User Api](https://ra
 
 * Clean Architecture
 * SOLID, KISS, DRY
+* JUnit
 * Retrofit
 * Room
 * MVVM
