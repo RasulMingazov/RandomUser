@@ -10,3 +10,5 @@ Android application that loads information from the RandomUser API. The followin
 1. Dagger
 1. Coil
 1. Navigation Component
+
+![](randomuser.gif)
