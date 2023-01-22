@@ -2,18 +2,18 @@
 
 Android application that loads information from the RandomUser API
 
-    ### Technologies:
+## Technologies:
 
-        1. Clean Architecture
-        1. Retrofit
-        1. Room
-        1. MVVM
-        1. LiveData
-        1. Dagger
-        1. Coil
-        1. Navigation Component
+*Clean Architecture
+*Retrofit
+*Room
+*MVVM
+*LiveData
+*Dagger
+*Coil
+*Navigation Component
 
-    ### Usage:
+## Usage:
 
 <p align="center">
   <img src="randomuser.gif" alt="animated" />
