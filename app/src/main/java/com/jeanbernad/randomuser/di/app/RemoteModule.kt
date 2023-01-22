@@ -1,6 +1,7 @@
 package com.jeanbernad.randomuser.di.app
 
 import com.google.gson.Gson
+import com.jeanbernad.randomuser.BuildConfig
 import com.jeanbernad.randomuser.di.user.network.UserRemoteModule
 import dagger.Module
 import dagger.Provides
@@ -28,7 +29,7 @@ class RemoteModule {
     @Singleton
     fun provideRetrofit(gson: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://randomuser.me/")
+            .baseUrl(BuildConfig.RANDOM_USER_API)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

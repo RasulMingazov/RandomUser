@@ -5,7 +5,11 @@ abstract class Abstract {
         fun map(mapper: M): T
     }
 
-    interface PresentationObject<T, M: Mapper>: Object<T, M>
+    interface PresentationModel
+
+    interface PresentationObject<T, M: Mapper>: Object<T, M>, PresentationModel
+
+    interface PresentationModelBind
 
     interface DataObject
 
@@ -16,7 +20,4 @@ abstract class Abstract {
             fun map(data: S): R
         }
     }
-
-    interface UiObjectBind
-
 }
