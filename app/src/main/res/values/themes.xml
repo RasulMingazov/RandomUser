@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.RandomUser" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/soft_black</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
 s        <item name="iconColor">@color/black</item>
         <item name="backgroundColor">@color/light_grey_two</item>
@@ -29,6 +29,7 @@ s        <item name="iconColor">@color/black</item>
         <item name="smallBlockColor">@color/white</item>
         <item name="starButtonColor">@color/light_grey_two</item>
         <item name="textColor">@color/soft_black</item>
+        <item name="android:navigationBarColor">@color/white</item>
 
     </style>
 </resources>
