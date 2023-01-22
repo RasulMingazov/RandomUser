@@ -1,15 +1,12 @@
 # RandomUser
 
-Android - приложение, загружающее информацию из RandomUser Api. При разработке использовались следующие технологии:
+Android application that loads information from the RandomUser API. The following technologies were used in the development:
 
-
-1. Kotlin
-1. MVVM
 1. Clean Architecture
+1. Retrofit
+1. Room (for database)
+1. MVVM
 1. LiveData
-2. Room (for database)
-3. Dagger (for dependency injection)
-4. Coroutines
-5. Retrofit
-6. Coil
-7. Navigation
+1. Dagger
+1. Coil
+1. Navigation Component
