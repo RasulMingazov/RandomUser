@@ -16,7 +16,7 @@ Android application that loads information from the RandomUser API(https://rando
 
 ## Usage:
 
-<table align="center>
+<table align="center">
   <tr>
     <td>Light mode</td>
      <td>Dark mode</td>
