@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     viewBinding {
         enabled = true
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "com.jeanbernad.randomuser"
         minSdk 26
-        targetSdk 31
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -34,17 +34,21 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "RANDOM_USER_API", '"https://randomuser.me/"')
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "RANDOM_USER_API", '""https://randomuser.me/"')
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
     viewBinding {
         enabled = true
@@ -80,7 +84,6 @@ dependencies {
     implementation lifecycleDependencies.runtime
     implementation lifecycleDependencies.livedata
     implementation lifecycleDependencies.common
-    implementation lifecycleDependencies.extensions
 
     //Navigation
     implementation navigationDependencies.fragment
@@ -90,7 +93,7 @@ dependencies {
     implementation koinDependencies.core
     implementation koinDependencies.android
 
-    //di
+    //Dagger
     implementation daggerDependencies.dagger
     //todo waiting for ksp
     kapt daggerDependencies.compiler
@@ -107,15 +110,18 @@ dependencies {
     implementation roomDependencies.ktx
     ksp roomDependencies.compiler
 
+    //Coil
+    implementation coilDependencies.coil
+    implementation coilDependencies.base
+
     //CircleImageView
-    implementation "de.hdodenhof:circleimageview:$circleimageview_version"
+    implementation circleImageViewDependency
 
     //SwipeRefresh
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
+    implementation swiperefreshlayoutDependency
 
-    //Coil
-    implementation "io.coil-kt:coil:$coil_version"
-    implementation "io.coil-kt:coil-base:$coil_version"
+    //Launch screen
+    implementation launchScreenDependency
 }
 
 kapt {
