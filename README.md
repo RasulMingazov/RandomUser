@@ -17,4 +17,5 @@ Android application that loads information from the RandomUser API
 
 <p align="center">
   <img src="random-user.gif" alt="animated" />
+    <img src="random-user-night.gif" alt="animated" />
 </p>
