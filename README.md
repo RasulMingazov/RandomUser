@@ -16,13 +16,15 @@ Android application that loads information from the [Random User Api](https://ra
 
 ## Usage:
 
-<table width:100% align="center">
-  <tr width:50%>
+<table align="center">
+  <tr>
     <td align="center">Light mode</td>
-     <td align="center">Dark mode</td>
+    
+    <td align="center">Dark mode</td>
   </tr>
-  <tr width:50%>
+  <tr>
     <td align="center"><img src="random-user.gif" alt="animated" width=292 height=634></td>
+    
     <td align="center"><img src="random-user-night.gif" alt="animated" width=292 height=634></td>
   </tr>
  </table>
