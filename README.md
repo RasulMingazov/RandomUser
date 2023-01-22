@@ -15,6 +15,7 @@ Android application that loads information from the [Random User Api](https://ra
 * Coil
 * Navigation Component
 * Night mode
+* KSP
 
 ## Usage:
 
