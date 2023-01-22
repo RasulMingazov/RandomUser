@@ -1,15 +1,35 @@
 # RandomUser
 
-Android - приложение, загружающее информацию из RandomUser Api. При разработке использовались следующие технологии:
+Android application that loads information from the [Random User Api](https://randomuser.me)
 
+## Technologies:
 
-1. Kotlin
-1. MVVM
-1. Clean Architecture
-1. LiveData
-2. Room (for database)
-3. Koin (for dependency injection)
-4. Coroutines
-5. Retrofit
-6. Glide
-7. Navigation
+* Clean Architecture
+* SOLID, KISS, DRY
+* Retrofit
+* Room
+* MVVM
+* LiveData
+* Dagger
+* Coil
+* Navigation Component
+* Night mode
+
+## Usage:
+
+<table align="center">
+  <tr>
+    <td>Light mode</td>   
+  </tr>
+  <tr>
+    <td><img src="random-user.gif" alt="animated" width=292 height=634></td>
+  </tr>
+ </table>
+ <table align="center">
+  <tr>
+    <td>Dark mode</td>
+  </tr>
+  <tr>
+    <td><img src="random-user-night.gif" alt="animated" width=292 height=634></td>
+  </tr>
+ </table>
