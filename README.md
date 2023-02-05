@@ -1,6 +1,6 @@
 # RandomUser
 
-Android application that loads information from the [Random User Api](https://randomuser.me)
+Application that loads information from the [Random User Api](https://randomuser.me)
 
 ## Technologies:
 
